@@ -1,0 +1,9 @@
+.homebutton {
+  display: flex;
+  align-items: center;
+}
+
+.homebutton svg:hover {
+  fill: #0d6efd;
+  cursor: pointer;
+}

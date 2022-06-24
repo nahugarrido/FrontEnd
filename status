@@ -1,0 +1,60 @@
+[33mcommit 14586c6f14ad0676349f83100b57a5e6c00bc71f[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: nahugarrido <garridonahuel8@gmail.com>
+Date:   Sat May 7 05:59:36 2022 -0300
+
+    modificacion seccion habilidades, añadi graficos, rediseñe contenedores, solucione bug proyectos
+
+[33mcommit 0cf440101b7fb76a1cff03b0b9f826580d919cfa[m
+Author: nahugarrido <garridonahuel8@gmail.com>
+Date:   Sun May 1 02:08:55 2022 -0300
+
+    seccion proyectos
+
+[33mcommit adb3d4ed1caebeec88399cbe218b6febc6600716[m
+Author: nahugarrido <garridonahuel8@gmail.com>
+Date:   Sun Apr 24 02:00:26 2022 -0300
+
+    mensaje
+
+[33mcommit c65eda74c972f5b84b1abfb9843c26919837da39[m
+Author: nahugarrido <garridonahuel8@gmail.com>
+Date:   Sat Apr 23 15:24:51 2022 -0300
+
+    borre componente innecesario
+
+[33mcommit d86d452ca053a70759d6971eff18914aba69dfe4[m
+Author: nahugarrido <garridonahuel8@gmail.com>
+Date:   Sat Apr 23 14:50:11 2022 -0300
+
+    añadi modales
+
+[33mcommit d2e3b7e8db43366cd40619ad7548543be28225b7[m
+Author: nahugarrido <garridonahuel8@gmail.com>
+Date:   Sun Apr 3 01:15:09 2022 -0300
+
+    ajustes y hacer pagina responsive
+
+[33mcommit 61d6288a360474364035f72f6cffd7663ca005aa[m
+Author: nahugarrido <garridonahuel8@gmail.com>
+Date:   Fri Apr 1 23:29:13 2022 -0300
+
+    cambie divs por sections y testeo de ventana modal
+
+[33mcommit 277f18866c47504b1aa8f57815daa8e71342eb24[m
+Author: nahugarrido <garridonahuel8@gmail.com>
+Date:   Mon Mar 28 00:19:26 2022 -0300
+
+    se añadieron imagenes, creacion seccion proyectos y contacto
+
+[33mcommit 9708a263fb4531f29a1c9ba2a513b6121424835f[m
+Author: nahugarrido <garridonahuel8@gmail.com>
+Date:   Sun Mar 27 14:21:12 2022 -0300
+
+    navbar fixed, marcadores en pagina, correcion
+    error imagenes, hibervinculos en botones de navbar, seccion habilidades
+
+[33mcommit 359fd36f6d751b46181d0c3994b55243b058423b[m
+Author: nahugarrido <garridonahuel8@gmail.com>
+Date:   Mon Mar 21 21:27:18 2022 -0300
+
+    initial commit

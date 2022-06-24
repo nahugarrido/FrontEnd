@@ -1,0 +1,527 @@
+<!-- modal Login -->
+<div class="modal fade" id="loginModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-title text-center">
+          <h4>Ingresar</h4>
+        </div>
+        <div class="d-flex flex-column text-center">
+          <form>
+            <div class="form-group">
+              <input
+                type="email"
+                class="form-control"
+                id="email1"
+                placeholder="Tu dirección email..."
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                class="form-control"
+                id="password1"
+                placeholder="Tu contraseña..."
+              />
+            </div>
+            <button
+              type="button"
+              class="btn btn-outline-primary me-2 mt-5 mb-3"
+            >
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Editar perfil-->
+<div
+  class="modal fade"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  id="perfilModal"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar: Perfil</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="elemento">
+          <label for="nameImput" class="form-label">Puesto: </label>
+          <input
+            type="text"
+            placeholder="Ejemplo: Full Stack Developer Jr"
+            aria-label="Puesto"
+            class="form-control"
+          />
+        </div>
+
+        <div class="elemento">
+          <label for="nameImput" class="form-label">Nombre y Apellido: </label>
+          <input
+            type="text"
+            placeholder="Introduzca su nombre y apellido"
+            aria-label="Nombre y apellido"
+            class="form-control"
+          />
+        </div>
+
+        <div class="elemento">
+          <label for="nameImput" class="form-label">Imagen: </label>
+          <input type="file" id="#" class="form-control" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-primary me-2"
+          data-bs-dismiss="modal"
+        >
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-primary">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--modal sobre mi-->
+<div
+  class="modal fade"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  id="sobremiModal"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar: Sobre mi</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="elemento">
+          <label for="nameImput" class="form-label">Descripción</label>
+          <textarea
+            id="#"
+            rows="3"
+            class="form-control"
+            placeholder="Ejemplo: Mi nombre es Juan Pablo soy una persona muy simpatica y desde siempre me han fascinado los peces dorados."
+          ></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-primary me-2"
+          data-bs-dismiss="modal"
+        >
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-primary">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--modal banner-->
+<div
+  class="modal fade"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  id="bannerModal"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar: Banner</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="elemento">
+          <label for="nameImput" class="form-label">Imagen: </label>
+          <input type="file" id="#" class="form-control" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-primary me-2"
+          data-bs-dismiss="modal"
+        >
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-primary">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal Eliminar-->
+<div
+  class="modal fade"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  id="eliminarModal"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar elemento</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          ¿Estás seguro de que deseas eliminar este elemento? Este proceso no
+          puede deshacerse.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-danger me-2"
+          data-bs-dismiss="modal"
+        >
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-danger">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal añadir-->
+<div
+  class="modal fade"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  id="añadirModal"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Añadir elemento</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          ¿Estás seguro de que deseas añadir un nuevo elemento a esta sección?
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-primary me-2"
+          data-bs-dismiss="modal"
+        >
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-primary">Añadir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--modal editar (experiencia)-->
+<div
+  class="modal fade"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  id="editExpModal"
+>
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar: Experiencia</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body">
+          <div class="elemento">
+            <label for="nameImput" class="form-label">Empresa:</label>
+            <input
+              type="text"
+              placeholder="Ejemplo: Empresa especializada en peces dorados"
+              aria-label="Nombre empresa"
+              class="form-control"
+            />
+          </div>
+          <div class="elemento">
+            <label for="nameImput" class="form-label">Puesto:</label>
+            <input
+              type="text"
+              placeholder="Software Developer Semi Senior"
+              aria-label="puesto"
+              class="form-control"
+            />
+          </div>
+          <div class="elemento">
+            <label for="nameImput" class="form-label">Fecha de Inicio:</label>
+            <input
+              type="text"
+              placeholder="Marzo 2030"
+              aria-label="fechainicio"
+              class="form-control"
+            />
+          </div>
+          <div class="elemento">
+            <label for="nameImput" class="form-label"
+              >Fecha de finalización:</label
+            >
+            <input
+              type="text"
+              placeholder="Agosto 2030"
+              aria-label="fechafinalizacion"
+              class="form-control"
+            />
+          </div>
+          <div class="elemento">
+            <label for="nameImput" class="form-label">Descripción</label>
+            <textarea
+              id="#"
+              rows="3"
+              class="form-control"
+              placeholder="Ejemplo: Mi tarea a cargo era alimentar, cuidar, y educar a los peces dorados, trabajo de jornada completa."
+            ></textarea>
+          </div>
+          <div class="elemento">
+            <label for="nameImput" class="form-label">Imagen: </label>
+            <input type="file" id="#" class="form-control" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-primary me-2"
+          data-bs-dismiss="modal"
+        >
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-primary">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--modal editar (educacion)-->
+<div
+  class="modal fade"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  id="editEduModal"
+>
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar: Educación</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body">
+          <div class="elemento">
+            <label for="nameImput" class="form-label">Titulo obtenido:</label>
+            <input
+              type="text"
+              placeholder="Ejemplo: Analista de Software"
+              aria-label="titulo obtenido"
+              class="form-control"
+            />
+          </div>
+          <div class="elemento">
+            <label for="nameImput" class="form-label">Institución:</label>
+            <input
+              type="text"
+              placeholder="Ejemplo: Universidad Tecnologica de Buenos Aires"
+              aria-label="lugar de estudio"
+              class="form-control"
+            />
+          </div>
+          <div class="elemento">
+            <label for="nameImput" class="form-label">Descripción</label>
+            <textarea
+              id="#"
+              rows="3"
+              class="form-control"
+              placeholder="Ejemplo: Mi tarea a cargo era alimentar, cuidar, y educar a los peces dorados, trabajo de jornada completa."
+            ></textarea>
+          </div>
+          <div class="elemento">
+            <label for="nameImput" class="form-label">Fecha de Inicio:</label>
+            <input
+              type="text"
+              placeholder="Marzo 2030"
+              aria-label="fechainicio"
+              class="form-control"
+            />
+          </div>
+          <div class="elemento">
+            <label for="nameImput" class="form-label"
+              >Fecha de finalización:</label
+            >
+            <input
+              type="text"
+              placeholder="Agosto 2030"
+              aria-label="fechafinalizacion"
+              class="form-control"
+            />
+          </div>
+          <div class="elemento">
+            <label for="nameImput" class="form-label">Imagen: </label>
+            <input type="file" id="#" class="form-control" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-primary me-2"
+          data-bs-dismiss="modal"
+        >
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-primary">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--modal editar (proyectos)-->
+<div
+  class="modal fade"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  id="editProjectModal"
+>
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar: Proyecto</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body">
+          <div class="elemento">
+            <label for="nameImput" class="form-label">Nombre:</label>
+            <input
+              type="text"
+              placeholder="Portfolio Argentina Programa"
+              aria-label="nombre proyecto"
+              class="form-control"
+            />
+          </div>
+          <div class="elemento">
+            <label for="nameImput" class="form-label">Fecha:</label>
+            <input
+              type="text"
+              placeholder="Marzo 2022"
+              aria-label="fecha proyecto"
+              class="form-control"
+            />
+          </div>
+          <div class="elemento">
+            <label for="nameImput" class="form-label">Descripción</label>
+            <textarea
+              id="#"
+              rows="3"
+              class="form-control"
+              placeholder="Proyecto desarrollado a lo largo de 8 meses utilizando diversas tecnologias y herramientas."
+            ></textarea>
+          </div>
+          <div class="elemento">
+            <label for="nameImput" class="form-label">Live code:</label>
+            <input
+              type="text"
+              placeholder="Enlace a proyecto en vivo"
+              aria-label="live code url"
+              class="form-control"
+            />
+          </div>
+          <div class="elemento">
+            <label for="nameImput" class="form-label">Source code:</label>
+            <input
+              type="text"
+              placeholder="Enlace a codigo en github"
+              aria-label="source code url"
+              class="form-control"
+            />
+          </div>
+          <div class="elemento">
+            <label for="nameImput" class="form-label">Imagen:</label>
+            <input type="file" id="#" class="form-control" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-primary me-2"
+          data-bs-dismiss="modal"
+        >
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-primary">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>

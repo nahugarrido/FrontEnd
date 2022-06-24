@@ -1,0 +1,70 @@
+#skills {
+  scroll-margin-top: 55px;
+}
+
+.tools-edit {
+  max-width: 100%;
+}
+
+.card {
+  background-color: ghostwhite;
+  border: none;
+  text-align: center;
+  width: 14rem;
+}
+
+.graph-container {
+  position: relative;
+  /* background-color: azure; */
+  align-items: center;
+  width: 160px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.outer {
+  height: 160px;
+  width: 160px;
+  border-radius: 50%;
+  box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
+    -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
+  /* border: 1px solid red; */
+  padding: 20px;
+}
+
+.inner {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  /*  border: 1px solid red; */
+  box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2),
+    inset -4px -4px 6px -1px rgba(255, 255, 255, 0.7),
+    -0.5px -0.5px 0px rgba(255, 255, 255, 0.1),
+    -0.5px -0.5px 0px rgba(0, 0, 0, 0.15),
+    0px 12px 10px -10px rgba(0, 0, 0, 0.05);
+}
+
+circle {
+  fill: none;
+  stroke: url(#GradientColor);
+  stroke-width: 20px;
+  stroke-dasharray: 472;
+  stroke-dashoffset: 472;
+  animation: anim 2s linear forwards;
+}
+
+.graph-container svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@keyframes anim {
+  100% {
+    stroke-dashoffset: 118;
+  }
+}

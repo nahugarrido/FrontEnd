@@ -1,0 +1,4 @@
+ng build --configuration development
+ng serve --open
+
+ng generate module <nombre-modulo>
