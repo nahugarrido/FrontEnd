@@ -157,11 +157,11 @@
         </ul>
       </nav>
     </div>
-    <div class="col-md-3 d-none d-md-block text-end iconosnav">
-      <a
-        href="https://www.linkedin.com/in/nahuel-garrido-b585b6226/"
-        target="_blank"
-      >
+    <div
+      class="col-md-3 d-none d-md-block text-end iconosnav"
+      *ngFor="let contacto of contactos"
+    >
+      <a href="{{ contacto.linkedin_url }}" target="_blank">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -178,7 +178,7 @@
           </rect>
         </svg>
       </a>
-      <a href="https://github.com/nahugarrido" target="_blank">
+      <a href="{{ contacto.github_url }}" target="_blank">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -195,7 +195,14 @@
           </rect>
         </svg>
       </a>
-      <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+      <button
+        type="button"
+        class="btn btn-outline-primary me-2"
+        data-bs-toggle="modal"
+        data-bs-target="#loginModal"
+      >
+        Login
+      </button>
     </div>
   </header>
 </section>

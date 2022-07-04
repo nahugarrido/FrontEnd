@@ -1,5 +1,5 @@
 <section class="container-flex mx-4 my-4 pb-4" id="aboutme">
-  <div class="row">
+  <div class="row" *ngFor="let persona of personas">
     <div class="col-sm-3 col-md-3 d-md-block pt-3">
       <div class="d-flex justify-content-center">
         <div class="profile-container">
@@ -11,8 +11,8 @@
         </div>
       </div>
       <div class="profile-text">
-        <span class="bold">Full Stack Developer Jr</span>
-        <p>Nahuel Garrido</p>
+        <span class="bold">{{ persona.puesto }}</span>
+        <p>{{ persona.nombre }} {{ persona.apellido }}</p>
         <div class="tools-edit">
           <svg
             data-bs-toggle="modal"
@@ -76,16 +76,7 @@
       </div>
       <div class="acerca-text">
         <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias
-          sunt officia eaque id doloremque eligendi! Dicta aliquam, nemo eum
-          tempore vel excepturi adipisci possimus hic necessitatibus iste
-          doloribus veritatis omnis. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Magnam pariatur sapiente quam tenetur ut adipisci
-          amet numquam temporibus neque sunt, perferendis molestias quo vitae
-          voluptates deleniti cum fugiat quas corporis. Lorem ipsum dolor sit
-          amet consectetur adipisicing elit. Nobis nam nihil ullam dolor
-          voluptatem necessitatibus consequuntur dolorum quo, tenetur atque unde
-          iusto ducimus rem eligendi. Eum facilis ullam nemo deleniti!
+          {{ persona.descripcion }}
         </p>
       </div>
     </div>

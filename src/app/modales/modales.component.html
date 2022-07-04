@@ -76,11 +76,21 @@
         </div>
 
         <div class="elemento">
-          <label for="nameImput" class="form-label">Nombre y Apellido: </label>
+          <label for="nameImput" class="form-label">Apellidos: </label>
           <input
             type="text"
-            placeholder="Introduzca su nombre y apellido"
-            aria-label="Nombre y apellido"
+            placeholder="Introduzca sus apellidos"
+            aria-label="apellido"
+            class="form-control"
+          />
+        </div>
+
+        <div class="elemento">
+          <label for="nameImput" class="form-label">Nombres: </label>
+          <input
+            type="text"
+            placeholder="Introduzca sus nombres"
+            aria-label="Nombre"
             class="form-control"
           />
         </div>
@@ -510,6 +520,70 @@
             <label for="nameImput" class="form-label">Imagen:</label>
             <input type="file" id="#" class="form-control" />
           </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-primary me-2"
+          data-bs-dismiss="modal"
+        >
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-primary">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Editar Contactos-->
+<div
+  class="modal fade"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  id="editcntModal"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar: Contacto</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="elemento">
+          <label for="nameImput" class="form-label">Email: </label>
+          <input
+            type="text"
+            placeholder="pezdorado@gmail.com"
+            aria-label="email"
+            class="form-control"
+          />
+        </div>
+
+        <div class="elemento">
+          <label for="nameImput" class="form-label">linkedin: </label>
+          <input
+            type="text"
+            placeholder="www.linkedin.com/perfil"
+            aria-label="linkedin"
+            class="form-control"
+          />
+        </div>
+
+        <div class="elemento">
+          <label for="nameImput" class="form-label">github: </label>
+          <input
+            type="text"
+            placeholder="www.github.com/perfil"
+            aria-label="github"
+            class="form-control"
+          />
         </div>
       </div>
       <div class="modal-footer">
