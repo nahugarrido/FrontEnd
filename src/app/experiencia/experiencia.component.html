@@ -11,8 +11,8 @@
     <div class="col-sm-8 col-md-9 d-none d-sm-block">
       <div class="d-flex justify-content-end tools-edit">
         <svg
+          (click)="open(content)"
           data-bs-toggle="modal"
-          data-bs-target="#añadirModal"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -30,14 +30,14 @@
       </div>
     </div>
   </div>
-  <div class="row pt-3" *ngFor="let experiencia of experiencias">
+  <div class="row pt-3" *ngFor="let experiencia of experiencia">
     <div class="col-sm-3 d-none d-sm-block pt-3">
       <div class="d-flex justify-content-center">
         <div class="img-container">
           <img
             class="img-inside-container"
-            src="assets/img/empty-img.png"
-            alt="empty img"
+            src="{{ experiencia.img }}"
+            alt="empty_img"
           />
         </div>
       </div>
@@ -50,8 +50,8 @@
           </div>
           <div class="tools-edit">
             <svg
+              (click)="openEdit(contentEdit, experiencia)"
               data-bs-toggle="modal"
-              data-bs-target="#editExpModal"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -68,8 +68,8 @@
               />
             </svg>
             <svg
+              (click)="openDelete(contentDelete, experiencia)"
               data-bs-toggle="modal"
-              data-bs-target="#eliminarModal"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -110,3 +110,209 @@
     </div>
   </div>
 </section>
+
+<!-- Modal Crear Nuevo Elemento-->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Añadir: Experiencia</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+      <div class="form-group">
+        <label>Empresa:</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            name="empresa"
+            #empresa="ngModel"
+            ngModel
+            required
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="puesto">Puesto:</label>
+        <div class="input-group">
+          <input id="puesto" name="puesto" class="form-control" ngModel />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripción:</label>
+        <div class="input-group">
+          <input
+            id="descripcion"
+            name="descripcion"
+            class="form-control"
+            ngModel
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fecha_inicio">Fecha de inicio:</label>
+        <div class="input-group">
+          <input
+            id="fecha_inicio"
+            name="fecha_inicio"
+            class="form-control"
+            ngModel
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fecha_finalizacion">Fecha de finalizacion:</label>
+        <div class="input-group">
+          <input
+            id="fecha_finalizacion"
+            name="fecha_finalizacion"
+            class="form-control"
+            ngModel
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="img">Imagen:</label>
+        <div class="input-group">
+          <input id="img" name="img" class="form-control" ngModel />
+          <!--           <input
+            type="file"
+            alife-file-to-base64
+            (onFileChanged)="onFileChanged($event)"
+            id="img"
+            name="img"
+            class="form-control"
+            ngModel
+          /> -->
+        </div>
+      </div>
+      <br />
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          (click)="c('Save click')"
+        >
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary" (click)="c('Save click')">
+          Guardar Cambios
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<!-- Modal Editar Elemento-->
+<ng-template #contentEdit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title2">Editar: Experiencia</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editForm" novalidate>
+      <div class="form-group">
+        <label for="empresa">Empresa:</label>
+        <div class="input-group">
+          <input formControlName="empresa" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="puesto">Puesto:</label>
+        <div class="input-group">
+          <input formControlName="puesto" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripción:</label>
+        <div class="input-group">
+          <!-- <input formControlName="descripcion" class="form-control" /> -->
+          <textarea
+            rows="5"
+            formControlName="descripcion"
+            class="form-control"
+          ></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fecha_inicio">Fecha de inicio:</label>
+        <div class="input-group">
+          <input formControlName="fecha_inicio" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fecha_finalizacion">Fecha de finalizacion:</label>
+        <div class="input-group">
+          <input formControlName="fecha_finalizacion" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="img">Imagen:</label>
+        <div class="input-group">
+          <input formControlName="img" class="form-control" />
+          <!--           <input
+            type="file"
+            alife-file-to-base64
+            (onFileChanged)="onFileChanged($event)"
+            formControlName="img"
+            class="form-control"
+            accept="image/png,image/jpg"
+          /> -->
+        </div>
+      </div>
+    </form>
+
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        (click)="modal.close('Save click')"
+      >
+        Cancelar
+      </button>
+      <button data-dismiss="modal" class="btn btn-primary" (click)="onSave()">
+        Guardar Cambios
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #contentDelete let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Eliminar elemento</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      ¿Estás seguro de que deseas eliminar este elemento? Este proceso no puede
+      deshacerse.
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-danger"
+      (click)="modal.close('Save click')"
+    >
+      Cancelar
+    </button>
+    <button data-dismiss="modal" class="btn btn-danger" (click)="onDelete()">
+      Eliminar
+    </button>
+  </div>
+</ng-template>
