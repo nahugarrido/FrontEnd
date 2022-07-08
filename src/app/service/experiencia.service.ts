@@ -21,11 +21,7 @@ export class ExperienciaService {
   }
   public addExperiencia(experiencia: Experiencia) {
     return this.http.post<Experiencia>(this.URL + 'crear', experiencia);
-    // .pipe(
-    //   tap(()=>{
-    //     this._refresh$.next();
-    //   })
- //)
+
   }
 
   public deleteExperiencia(id: any) {
@@ -34,11 +30,6 @@ export class ExperienciaService {
 
   public updateExperiencia(experiencia: Experiencia) {
     return this.http.put<Experiencia>(this.URL + 'editar/'+ experiencia.id,experiencia)
-    // .pipe(
-    //   tap(()=>{
-    //     this._refresh$.next();
-    //   })
-    // )
   }
  
 

@@ -38,6 +38,7 @@
             class="img-inside-container"
             src="{{ experiencia.img }}"
             alt="empty_img"
+            accept="image/*"
           />
         </div>
       </div>
@@ -145,12 +146,19 @@
       <div class="form-group">
         <label for="descripcion">Descripción:</label>
         <div class="input-group">
-          <input
+          <!--           <input
             id="descripcion"
             name="descripcion"
             class="form-control"
             ngModel
-          />
+          /> -->
+          <textarea
+            rows="5"
+            id="descripcion"
+            name="descripcion"
+            class="form-control"
+            ngModel
+          ></textarea>
         </div>
       </div>
       <div class="form-group">
@@ -178,16 +186,23 @@
       <div class="form-group">
         <label for="img">Imagen:</label>
         <div class="input-group">
-          <input id="img" name="img" class="form-control" ngModel />
-          <!--           <input
+          <!-- <input id="img" name="img" class="form-control" ngModel /> -->
+          <input
             type="file"
             alife-file-to-base64
             (onFileChanged)="onFileChanged($event)"
             id="img"
             name="img"
             class="form-control"
-            ngModel
-          /> -->
+          />
+
+          <!--           <input
+          type="file"
+          alife-file-to-base64
+          (onFileChanged)="onFileChanged($event)"
+          formControlName="img"
+          class="form-control"
+        /> -->
         </div>
       </div>
       <br />
@@ -201,6 +216,7 @@
           Cancelar
         </button>
         <button type="submit" class="btn btn-primary" (click)="c('Save click')">
+          <!-- <button type="submit" class="btn btn-primary" (click)="onSave()"> -->
           Guardar Cambios
         </button>
       </div>
@@ -259,20 +275,17 @@
       <div class="form-group">
         <label for="img">Imagen:</label>
         <div class="input-group">
-          <input formControlName="img" class="form-control" />
-          <!--           <input
+          <!-- <input formControlName="img" class="form-control" /> -->
+          <input
             type="file"
             alife-file-to-base64
             (onFileChanged)="onFileChanged($event)"
-            formControlName="img"
             class="form-control"
-            accept="image/png,image/jpg"
-          /> -->
+          />
         </div>
       </div>
     </form>
-
-    <div class="modal-footer">
+    <div class="modal-footer editfoot">
       <button
         type="button"
         class="btn btn-outline-primary"

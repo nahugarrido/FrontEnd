@@ -18,7 +18,7 @@ export class ExperienciaComponent implements OnInit {
   closeResult: string;
   editForm: FormGroup;
   private deleteId: number;
-  img: string;
+  imagen2: string;
 
   constructor(config: NgbModalConfig, 
     private modalService: NgbModal,
@@ -42,18 +42,26 @@ export class ExperienciaComponent implements OnInit {
       img: [''],
     });
   }
-
-   getExperiencia(){
+  
+  getExperiencia(){
     this.httpClient.get<any>('http://localhost:8080/experiencias/traer').subscribe(
-       response =>{
+      response =>{
         console.log(response);
         this.experiencia =response;
       }
-    )
-  }
+      )
+    }
+    
+    onFileChanged(e){
+      console.log(e);
+      this.imagen2= e[0].base64;
+      this.editForm.value.img=this.imagen2;
+    };
 
-
-  onSubmit(f: NgForm) {
+    /* ACA */
+/*   onSubmit(f: NgForm) {
+    this.editForm.value.img = this.imagen2;
+    console.log(this.editForm.value);
     console.log(f.form.value);
     const url = 'http://localhost:8080/experiencias/crear';
     this.httpClient.post(url, f.value)
@@ -61,7 +69,20 @@ export class ExperienciaComponent implements OnInit {
         this.ngOnInit(); // reload the table
       });
     this.modalService.dismissAll(); // dismiss the modal
+  } */
+
+  onSubmit(f: NgForm) {
+    f.form.value.img=this.imagen2;
+    // console.log(this.editForm.value);
+     console.log(f.form.value);
+     const url = 'http://localhost:8080/experiencias/crear';
+     this.httpClient.post(url, f.value)
+       .subscribe((result) => {
+        this.ngOnInit(); 
+    });
+     this.modalService.dismissAll(); 
   }
+
 
   openEdit(targetModal, experiencia:Experiencia) {
     this.modalService.open(targetModal, {
@@ -77,11 +98,13 @@ export class ExperienciaComponent implements OnInit {
       fecha_finalizacion: experiencia.fecha_finalizacion,
       img: experiencia.img,
     });
-   }
-
-
+  }
+  
+  
 
   onSave() {
+    this.editForm.value.img = this.imagen2;
+    console.log(this.editForm.value);
     const editURL = 'http://localhost:8080/experiencias/' + 'editar/'  + this.editForm.value.id ;
     this.httpClient.put(editURL, this.editForm.value)
       .subscribe((results) => {
@@ -127,10 +150,7 @@ export class ExperienciaComponent implements OnInit {
     }
   }
   
-  onFileChanged(e){
-    console.log(e);
-   this.img= e[0].base64;
-  };
+  /* ALTER TABLE `backendnahuelgarrido`.`experiencia` MODIFY COLUMN img LONGTEXT; */
 
 }
 
