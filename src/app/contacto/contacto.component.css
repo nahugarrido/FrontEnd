@@ -8,13 +8,10 @@ span {
   text-align: center;
 }
 
-form {
-  width: 40%;
-}
+/* .formulario input {
+  width: 20em;
+} */
 
 .btn-contact {
   margin-top: 5%;
-}
-
-.elemento {
 }

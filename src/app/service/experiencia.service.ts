@@ -6,11 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ExperienciaService {
-
   URL = 'http://localhost:8080/experiencias/';
 
-
-  
   constructor(private http: HttpClient) { }
 
   public getExperiencia(): Observable<Experiencia[]>  {
@@ -31,6 +28,4 @@ export class ExperienciaService {
   public updateExperiencia(experiencia: Experiencia) {
     return this.http.put<Experiencia>(this.URL + 'editar/'+ experiencia.id,experiencia)
   }
- 
-
 }

@@ -46,30 +46,18 @@ export class ExperienciaComponent implements OnInit {
   getExperiencia(){
     this.httpClient.get<any>('http://localhost:8080/experiencias/traer').subscribe(
       response =>{
-        console.log(response);
+        //console.log(response);
         this.experiencia =response;
       }
       )
     }
     
+    /* ALTER TABLE `backendnahuelgarrido`.`experiencia` MODIFY COLUMN img LONGTEXT; */
     onFileChanged(e){
       console.log(e);
       this.imagen2= e[0].base64;
       this.editForm.value.img=this.imagen2;
     };
-
-    /* ACA */
-/*   onSubmit(f: NgForm) {
-    this.editForm.value.img = this.imagen2;
-    console.log(this.editForm.value);
-    console.log(f.form.value);
-    const url = 'http://localhost:8080/experiencias/crear';
-    this.httpClient.post(url, f.value)
-      .subscribe((result) => {
-        this.ngOnInit(); // reload the table
-      });
-    this.modalService.dismissAll(); // dismiss the modal
-  } */
 
   onSubmit(f: NgForm) {
     f.form.value.img=this.imagen2;
@@ -150,7 +138,7 @@ export class ExperienciaComponent implements OnInit {
     }
   }
   
-  /* ALTER TABLE `backendnahuelgarrido`.`experiencia` MODIFY COLUMN img LONGTEXT; */
+  
 
 }
 
