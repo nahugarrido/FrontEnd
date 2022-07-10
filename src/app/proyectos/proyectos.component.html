@@ -9,7 +9,7 @@
       <div class="d-flex justify-content-end tools-edit">
         <svg
           data-bs-toggle="modal"
-          data-bs-target="#añadirModal"
+          (click)="open(content)"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -28,9 +28,14 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-xl-4 col-lg-6 col-sm-12" *ngFor="let proyecto of proyectos">
+    <div class="col-xl-4 col-lg-6 col-sm-12" *ngFor="let proyecto of proyecto">
       <div class="card">
-        <img src="assets/img/empty-img.png" class="card-img-top" alt="..." />
+        <img
+          src="{{ proyecto.img }}"
+          class="card-img-top"
+          alt="..."
+          accept="image/*"
+        />
         <div class="card-body">
           <div class="row">
             <div class="col-8">
@@ -60,7 +65,7 @@
             <div class="col-3 tools-edit d-flex justify-content-end">
               <svg
                 data-bs-toggle="modal"
-                data-bs-target="#editProjectModal"
+                (click)="openEdit(contentEdit, proyecto)"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -78,7 +83,7 @@
               </svg>
               <svg
                 data-bs-toggle="modal"
-                data-bs-target="#eliminarModal"
+                (click)="openDelete(contentDelete, proyecto)"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -101,3 +106,221 @@
     </div>
   </div>
 </section>
+
+<!-- Modal Crear Nuevo Elemento-->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Añadir: Proyecto</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+      <div class="form-group">
+        <label>Nombre:</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            name="nombre"
+            #nombre="ngModel"
+            ngModel
+            required
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fecha">Fecha:</label>
+        <div class="input-group">
+          <input id="fecha" name="fecha" class="form-control" ngModel />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripción:</label>
+        <div class="input-group">
+          <!--           <input
+            id="descripcion"
+            name="descripcion"
+            class="form-control"
+            ngModel
+          /> -->
+          <textarea
+            rows="3"
+            id="descripcion"
+            name="descripcion"
+            class="form-control"
+            ngModel
+          ></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="livecode_url">Live code (enlace):</label>
+        <div class="input-group">
+          <input
+            id="livecode_url"
+            name="livecode_url"
+            class="form-control"
+            ngModel
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="sourcecode_url">Source code (enlace):</label>
+        <div class="input-group">
+          <input
+            id="sourcecode_url"
+            name="sourcecode_url"
+            class="form-control"
+            ngModel
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="img">Imagen:</label>
+        <div class="input-group">
+          <!-- <input id="img" name="img" class="form-control" ngModel /> -->
+          <input
+            type="file"
+            alife-file-to-base64
+            (onFileChanged)="onFileChanged($event)"
+            id="img"
+            name="img"
+            class="form-control"
+          />
+
+          <!--           <input
+          type="file"
+          alife-file-to-base64
+          (onFileChanged)="onFileChanged($event)"
+          formControlName="img"
+          class="form-control"
+        /> -->
+        </div>
+      </div>
+      <br />
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          (click)="c('Save click')"
+        >
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary" (click)="c('Save click')">
+          <!-- <button type="submit" class="btn btn-primary" (click)="onSave()"> -->
+          Guardar Cambios
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<!-- Modal Editar Elemento-->
+<ng-template #contentEdit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title2">Editar: Proyecto</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editForm" novalidate>
+      <div class="form-group">
+        <label for="nombre">nombre:</label>
+        <div class="input-group">
+          <input formControlName="nombre" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fecha">Fecha:</label>
+        <div class="input-group">
+          <input formControlName="fecha" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripción:</label>
+        <div class="input-group">
+          <!-- <input formControlName="descripcion" class="form-control" /> -->
+          <textarea
+            rows="5"
+            formControlName="descripcion"
+            class="form-control"
+          ></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="livecode_url">Live code:</label>
+        <div class="input-group">
+          <input formControlName="livecode_url" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="sourcecode_url">Source code:</label>
+        <div class="input-group">
+          <input formControlName="sourcecode_url" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="img">Imagen:</label>
+        <div class="input-group">
+          <!-- <input formControlName="img" class="form-control" /> -->
+          <input
+            type="file"
+            alife-file-to-base64
+            (onFileChanged)="onFileChanged($event)"
+            class="form-control"
+          />
+        </div>
+      </div>
+    </form>
+    <div class="modal-footer editfoot">
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        (click)="modal.close('Save click')"
+      >
+        Cancelar
+      </button>
+      <button data-dismiss="modal" class="btn btn-primary" (click)="onSave()">
+        Guardar Cambios
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #contentDelete let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Eliminar elemento</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      ¿Estás seguro de que deseas eliminar este elemento? Este proceso no puede
+      deshacerse.
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-danger"
+      (click)="modal.close('Save click')"
+    >
+      Cancelar
+    </button>
+    <button data-dismiss="modal" class="btn btn-danger" (click)="onDelete()">
+      Eliminar
+    </button>
+  </div>
+</ng-template>

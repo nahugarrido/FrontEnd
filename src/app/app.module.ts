@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BannerComponent } from './banner/banner.component';
@@ -14,6 +14,12 @@ import { ContactoComponent } from './contacto/contacto.component';
 import { ModalesComponent } from './modales/modales.component';
 import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { AlifeFileToBase64Module } from 'alife-file-to-base64';
+
+
+
 
 @NgModule({
   declarations: [
@@ -28,11 +34,17 @@ import { HttpClientModule } from '@angular/common/http';
     ProyectosComponent,
     ContactoComponent,
     ModalesComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    NgbModule,
+    ReactiveFormsModule,
+    AlifeFileToBase64Module,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { contacto } from '../model/contacto.model';
+import { Contacto } from '../model/contacto.model';
 import { ContactoService } from '../service/contacto.service';
 
 @Component({
@@ -8,11 +8,12 @@ import { ContactoService } from '../service/contacto.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  contactos: contacto[] = [];
+  contacto: Contacto[] = [];
   constructor(public contactoService: ContactoService) { }
 
   ngOnInit(): void {
-    this.contactoService.getContacto().subscribe(data => {this.contactos = data})
+    this.contactoService.getContacto().subscribe(data => {this.contacto = data})
+    //console.log(this.contacto);
   }
 
 }

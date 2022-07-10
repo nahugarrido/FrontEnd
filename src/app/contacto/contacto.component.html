@@ -2,7 +2,7 @@
   <div
     class="container-flex grey-container pt-5 pb-5 mx-4"
     id="contact"
-    *ngFor="let contacto of contactos"
+    *ngFor="let contacto of contacto"
   >
     <div class="row">
       <div class="col-12 d-flex justify-content-center">
@@ -10,7 +10,7 @@
         <div class="tools-edit">
           <svg
             data-bs-toggle="modal"
-            data-bs-target="#editcntModal"
+            (click)="openEdit(contentEdit, contacto)"
             xmlns="http://www.w3.org/2000/svg"
             width="16"
             height="16"
@@ -38,30 +38,83 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 d-flex justify-content-center">
-        <form>
-          <div class="elemento">
-            <label class="form-label"
-              >Email: {{ contacto.mail_contacto }}</label
-            >
-            <input type="email" class="form-control" aria-describedby="email" />
-          </div>
+      <div class="col-12 d-flex justify-content-center formulario">
+        <div>
+          <form class="formulario">
+            <div class="elemento">
+              <label class="form-label"
+                >Email: {{ contacto.mail_contacto }}</label
+              >
+              <input
+                type="email"
+                class="form-control"
+                aria-describedby="email"
+              />
+            </div>
 
-          <div class="elemento">
-            <label class="form-label">*Asunto: </label>
-            <input type="text" aria-label="Asunto" class="form-control" />
-          </div>
-          <div class="elemento">
-            <label class="form-label">*Mensaje: </label>
-            <textarea rows="3" class="form-control" placeholder=""></textarea>
-          </div>
-          <div class="btn-contact d-flex justify-content-center">
-            <button type="button" class="btn btn-outline-primary">
-              Enviar
-            </button>
-          </div>
-        </form>
+            <div class="elemento">
+              <label class="form-label">*Asunto: </label>
+              <input type="text" aria-label="Asunto" class="form-control" />
+            </div>
+            <div class="elemento">
+              <label class="form-label">*Mensaje: </label>
+              <textarea rows="3" class="form-control" placeholder=""></textarea>
+            </div>
+            <div class="btn-contact d-flex justify-content-center">
+              <button type="button" class="btn btn-outline-primary">
+                Enviar
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- Modal Editar Elemento-->
+<ng-template #contentEdit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Editar: Contacto</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editForm" novalidate>
+      <div class="form-group">
+        <label for="mail_contacto">Email:</label>
+        <div class="input-group">
+          <input formControlName="mail_contacto" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="linkedin_url">Linkedin:</label>
+        <div class="input-group">
+          <input formControlName="linkedin_url" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="github_url">Github:</label>
+        <div class="input-group">
+          <input formControlName="github_url" class="form-control" />
+        </div>
+      </div>
+    </form>
+    <div class="modal-footer editfoot">
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        (click)="modal.close('Save click')"
+      >
+        Cancelar
+      </button>
+      <button data-dismiss="modal" class="btn btn-primary" (click)="onSave()">
+        Guardar Cambios
+      </button>
+    </div>
+  </div>
+</ng-template>

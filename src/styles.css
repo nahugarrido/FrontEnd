@@ -1,11 +1,11 @@
 body {
   background-color: ghostwhite;
   padding-top: 90px;
-
 }
 
 /* Setea un minimo de tamaño y de esta forma los iconos de la navbar no colapsan al usar pantallas pequeñas */
-html, body {
+html,
+body {
   min-width: 370px;
   width: auto;
 }
@@ -48,3 +48,10 @@ html {
   overflow-y: scroll !important;
 }
 
+label {
+  margin-bottom: 1%;
+  margin-top: 2%;
+}
+.elemento {
+  margin-bottom: 5%;
+}

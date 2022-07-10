@@ -1,11 +1,12 @@
 <section class="container-flex mx-4 my-4 pb-4" id="aboutme">
-  <div class="row" *ngFor="let persona of personas">
+  <div class="row" *ngFor="let persona of persona">
     <div class="col-sm-3 col-md-3 d-md-block pt-3">
       <div class="d-flex justify-content-center">
         <div class="profile-container">
           <img
-            src="assets/img/perfilarg.jpg"
+            src="{{ persona.img }}"
             alt="Foto perfil"
+            accept="image/*"
             class="rounded-circle profile-img"
           />
         </div>
@@ -16,7 +17,7 @@
         <div class="tools-edit">
           <svg
             data-bs-toggle="modal"
-            data-bs-target="#perfilModal"
+            (click)="openEdit(contentEdit, persona)"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -41,7 +42,7 @@
         <div class="tools-edit">
           <svg
             data-bs-toggle="modal"
-            data-bs-target="#sobremiModal"
+            (click)="openEdit(contentEdit2, persona)"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -59,7 +60,7 @@
           </svg>
           <svg
             data-bs-toggle="modal"
-            data-bs-target="#bannerModal"
+            (click)="openEdit(contentEdit3, persona)"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -82,3 +83,143 @@
     </div>
   </div>
 </section>
+
+<!-- Modal Editar Elemento-->
+<ng-template #contentEdit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title2">Editar: Perfil</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editForm" novalidate>
+      <div class="form-group">
+        <label for="apellid">Apellido:</label>
+        <div class="input-group">
+          <input formControlName="apellido" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <div class="input-group">
+          <input formControlName="nombre" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="puesto">Puesto:</label>
+        <div class="input-group">
+          <input formControlName="puesto" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="img">Imagen:</label>
+        <div class="input-group">
+          <!-- <input formControlName="img" class="form-control" /> -->
+          <input
+            type="file"
+            alife-file-to-base64
+            (onFileChanged)="onFileChanged($event)"
+            class="form-control"
+          />
+        </div>
+      </div>
+    </form>
+    <div class="modal-footer editfoot">
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        (click)="modal.close('Save click')"
+      >
+        Cancelar
+      </button>
+      <button data-dismiss="modal" class="btn btn-primary" (click)="onSave()">
+        Guardar Cambios
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Modal Editar Elemento-->
+<ng-template #contentEdit2 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title2">Editar: Sobre mi</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editForm" novalidate>
+      <div class="form-group">
+        <label for="descripcion">Descripción:</label>
+        <div class="input-group">
+          <!-- <input formControlName="descripcion" class="form-control" /> -->
+          <textarea
+            rows="6"
+            formControlName="descripcion"
+            class="form-control"
+          ></textarea>
+        </div>
+      </div>
+    </form>
+    <div class="modal-footer editfoot">
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        (click)="modal.close('Save click')"
+      >
+        Cancelar
+      </button>
+      <button data-dismiss="modal" class="btn btn-primary" (click)="onSave()">
+        Guardar Cambios
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Modal Editar Elemento (banner)-->
+<ng-template #contentEdit3 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Editar: Banner</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editForm" novalidate>
+      <div class="form-group">
+        <label for="banner_img">Imagen:</label>
+        <div class="input-group">
+          <!-- <input formControlName="img" class="form-control" /> -->
+          <input
+            type="file"
+            alife-file-to-base64
+            (onFileChanged)="onFileChanged2($event)"
+            class="form-control"
+          />
+        </div>
+      </div>
+    </form>
+    <div class="modal-footer editfoot">
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        (click)="modal.close('Save click')"
+      >
+        Cancelar
+      </button>
+      <button data-dismiss="modal" class="btn btn-primary" (click)="onSave()">
+        Guardar Cambios
+      </button>
+    </div>
+  </div>
+</ng-template>
