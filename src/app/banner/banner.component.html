@@ -1,9 +1,13 @@
 <section
   class="container-flex mx-3 justify-content-center banner-container grey-container"
 >
-  <div class="col-sm-12 d-none d-sm-block" id="img-banner-container">
+  <div
+    class="col-sm-12 d-none d-sm-block"
+    id="img-banner-container"
+    *ngFor="let persona of persona"
+  >
     <img
-      src="assets/img/banner.png"
+      src="{{ persona.img_banner }}"
       alt="banner"
       id="banner"
       accept="image/*"

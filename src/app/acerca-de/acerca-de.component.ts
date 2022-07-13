@@ -62,7 +62,7 @@ export class AcercaDeComponent implements OnInit {
     onFileChanged2(e){
       console.log(e);
       this.imagen3= e[0].base64;
-      this.editForm.value.img=this.imagen3;
+      this.editForm.value.img_banner=this.imagen3;
     };
 
   onSubmit(f: NgForm) {
@@ -95,8 +95,8 @@ export class AcercaDeComponent implements OnInit {
   }
   
   onSave() {
-    this.editForm.value.img = this.imagen2;
-    this.editForm.value.img_banner = this.imagen3;
+    //this.editForm.value.img = this.imagen2;
+    //sthis.editForm.value.img_banner = this.imagen3;
     //console.log(this.editForm.value);
     const editURL = 'http://localhost:8080/personas/' + 'editar/'  + this.editForm.value.id ;
     this.httpClient.put(editURL, this.editForm.value)

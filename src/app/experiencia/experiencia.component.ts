@@ -91,7 +91,7 @@ export class ExperienciaComponent implements OnInit {
   
 
   onSave() {
-    this.editForm.value.img = this.imagen2;
+    //this.editForm.value.img = this.imagen2;
     console.log(this.editForm.value);
     const editURL = 'http://localhost:8080/experiencias/' + 'editar/'  + this.editForm.value.id ;
     this.httpClient.put(editURL, this.editForm.value)

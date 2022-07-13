@@ -9,7 +9,7 @@
       <div class="d-flex justify-content-end tools-edit">
         <svg
           data-bs-toggle="modal"
-          data-bs-target="#añadirModal"
+          (click)="open(content)"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -30,13 +30,16 @@
   <!-- LINEA 1 -->
   <div class="row">
     <!-- TEST -->
-    <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+    <div
+      class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 d-flex justify-content-center"
+      *ngFor="let habilidad of habilidad"
+    >
       <div class="card">
         <div class="row">
           <div class="tools-edit d-flex justify-content-end mt-2">
             <svg
               data-bs-toggle="modal"
-              data-bs-target="#skillsModal"
+              (click)="openEdit(contentEdit, habilidad)"
               xmlns="http://www.w3.org/2000/svg"
               width="20"
               height="20"
@@ -54,7 +57,7 @@
             </svg>
             <svg
               data-bs-toggle="modal"
-              data-bs-target="#eliminarModal"
+              (click)="openDelete(contentDelete, habilidad)"
               xmlns="http://www.w3.org/2000/svg"
               width="20"
               height="20"
@@ -95,10 +98,10 @@
             </div>
           </div>
           <div class="row">
-            <span class="bold">Habilidad</span>
+            <span class="bold">{{ habilidad.habilidad }}</span>
           </div>
           <div class="row">
-            <span>Nivel</span>
+            <span>{{ habilidad.nivel }}</span>
           </div>
           <div class="row"></div>
         </div>
@@ -106,3 +109,122 @@
     </div>
   </div>
 </section>
+
+<!-- Modal Crear Nuevo Elemento-->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Añadir: Habilidad</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+      <div class="form-group">
+        <label>Habilidad:</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            name="habilidad"
+            #habilidad="ngModel"
+            ngModel
+            required
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="nivel">nivel:</label>
+        <div class="input-group">
+          <input id="nivel" name="nivel" class="form-control" ngModel />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          (click)="c('Save click')"
+        >
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary" (click)="c('Save click')">
+          <!-- <button type="submit" class="btn btn-primary" (click)="onSave()"> -->
+          Guardar Cambios
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<!-- Modal Editar Elemento-->
+<ng-template #contentEdit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title2">Editar: Habilidad</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editForm" novalidate>
+      <div class="form-group">
+        <label for="habilidad">Habilidad:</label>
+        <div class="input-group">
+          <input formControlName="habilidad" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="nivel">Nivel:</label>
+        <div class="input-group">
+          <input formControlName="nivel" class="form-control" />
+        </div>
+      </div>
+    </form>
+    <div class="modal-footer editfoot">
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        (click)="modal.close('Save click')"
+      >
+        Cancelar
+      </button>
+      <button data-dismiss="modal" class="btn btn-primary" (click)="onSave()">
+        Guardar Cambios
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #contentDelete let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Eliminar elemento</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>
+      ¿Estás seguro de que deseas eliminar este elemento? Este proceso no puede
+      deshacerse.
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-danger"
+      (click)="modal.close('Save click')"
+    >
+      Cancelar
+    </button>
+    <button data-dismiss="modal" class="btn btn-danger" (click)="onDelete()">
+      Eliminar
+    </button>
+  </div>
+</ng-template>
