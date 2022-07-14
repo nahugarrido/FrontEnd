@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModalConfig,NgbModal,ModalDismissReasons,  } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalConfig, NgbModal, ModalDismissReasons, } from '@ng-bootstrap/ng-bootstrap';
 import { EducacionService } from '../service/educacion.service';
-import { FormsModule,FormGroup,FormBuilder, NgForm } from '@angular/forms';
+import { FormsModule, FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Educacion } from '../model/educacion.model';
 
@@ -19,15 +19,15 @@ export class EducacionComponent implements OnInit {
   private deleteId: number;
   imagen2: string;
 
-  constructor(config: NgbModalConfig, 
+  constructor(config: NgbModalConfig,
     private modalService: NgbModal,
     private fb: FormBuilder,
-    public httpClient:HttpClient) {
+    public httpClient: HttpClient) {
     config.backdrop = 'static';
     config.keyboard = false;
   }
 
-  
+
 
   ngOnInit(): void {
     this.getEducacion();
@@ -41,42 +41,42 @@ export class EducacionComponent implements OnInit {
       img: [''],
     });
   }
-  
-  getEducacion(){
+
+  getEducacion() {
     this.httpClient.get<any>('http://localhost:8080/educaciones/traer').subscribe(
-      response =>{
+      response => {
         //console.log(response);
-        this.educacion =response;
+        this.educacion = response;
       }
-      )
-    }
-    
-    /* ALTER TABLE `backendnahuelgarrido`.`educacion` MODIFY COLUMN imagen LONGTEXT; */
-    onFileChanged(e){
-      console.log(e);
-      this.imagen2= e[0].base64;
-      this.editForm.value.img=this.imagen2;
-    };
+    )
+  }
+
+  /* ALTER TABLE `backendnahuelgarrido`.`educacion` MODIFY COLUMN imagen LONGTEXT; */
+  onFileChanged(e) {
+    console.log(e);
+    this.imagen2 = e[0].base64;
+    this.editForm.value.img = this.imagen2;
+  };
 
   onSubmit(f: NgForm) {
-    f.form.value.img= this.imagen2;
+    f.form.value.img = this.imagen2; /// ESTO ES LO QUE LO ROMPE
     //console.log("ON SUBMIT:", this.editForm.value);
-     console.log(f.form.value);
-     const url = 'http://localhost:8080/educaciones/crear';
-     this.httpClient.post(url, f.value)
-       .subscribe((result) => {
-        this.ngOnInit(); 
-    });
-     this.modalService.dismissAll(); 
+    console.log(f.form.value);
+    const url = 'http://localhost:8080/educaciones/crear';
+    this.httpClient.post(url, f.value)
+      .subscribe((result) => {
+        this.ngOnInit();
+      });
+    this.modalService.dismissAll();
   }
 
 
-  openEdit(targetModal, educacion:Educacion) {
+  openEdit(targetModal, educacion: Educacion) {
     this.modalService.open(targetModal, {
       centered: true,
       backdrop: 'static',
     });
-    this.editForm.patchValue( {
+    this.editForm.patchValue({
       id: educacion.id,
       titulo: educacion.titulo,
       institucion: educacion.institucion,
@@ -85,14 +85,16 @@ export class EducacionComponent implements OnInit {
       fecha_finalizacion: educacion.fecha_finalizacion,
       img: educacion.img,
     });
+    console.log("Open edit:", educacion);
   }
-  
-  
+
+
 
   onSave() {
-    this.editForm.value.img = this.imagen2;
-    console.log(this.editForm.value);
-    const editURL = 'http://localhost:8080/educaciones/' + 'editar/'  + this.editForm.value.id ;
+    console.log("on save 1:", this.editForm.value);
+    //this.editForm.value.img = this.imagen2;
+    console.log("on save 2:", this.editForm.value);
+    const editURL = 'http://localhost:8080/educaciones/' + 'editar/' + this.editForm.value.id;
     this.httpClient.put(editURL, this.editForm.value)
       .subscribe((results) => {
         this.ngOnInit();
@@ -100,7 +102,7 @@ export class EducacionComponent implements OnInit {
       });
   }
 
-  openDelete(targetModal, educacion:Educacion) {
+  openDelete(targetModal, educacion: Educacion) {
     console.log(this.deleteId);
     console.log(educacion.id);
     this.deleteId = educacion.id;
@@ -110,7 +112,7 @@ export class EducacionComponent implements OnInit {
   }
 
   onDelete() {
-    const deleteURL = 'http://localhost:8080/educaciones/' +  'borrar/'+ this.deleteId ;
+    const deleteURL = 'http://localhost:8080/educaciones/' + 'borrar/' + this.deleteId;
     this.httpClient.delete(deleteURL)
       .subscribe((results) => {
         this.ngOnInit();
@@ -120,7 +122,7 @@ export class EducacionComponent implements OnInit {
 
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -136,8 +138,8 @@ export class EducacionComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-  
-  
+
+
 
 }
 

@@ -11,6 +11,8 @@
   border: none;
   text-align: center;
   width: 14rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
 .graph-container {
