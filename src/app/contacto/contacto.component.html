@@ -37,11 +37,11 @@
         >
       </div>
     </div>
-    <div class="row">
-      <div class="col-12 d-flex justify-content-center formulario">
-        <div>
-          <form class="formulario">
-            <div class="elemento">
+    <div class="row d-flex justify-content-center">
+      <div class="col-12">
+        <form class="formulario">
+          <div class="row d-flex justify-content-center">
+            <div class="col-xl-4 col-lg-6 col-md-8 col-sm-8 col-10 elemento">
               <label class="form-label"
                 >Email: {{ contacto.mail_contacto }}</label
               >
@@ -51,22 +51,26 @@
                 aria-describedby="email"
               />
             </div>
+          </div>
 
-            <div class="elemento">
+          <div class="row d-flex justify-content-center">
+            <div class="col-xl-4 col-lg-6 col-md-8 col-sm-8 col-10 elemento">
               <label class="form-label">*Asunto: </label>
               <input type="text" aria-label="Asunto" class="form-control" />
             </div>
-            <div class="elemento">
+          </div>
+          <div class="row d-flex justify-content-center">
+            <div class="col-xl-4 col-lg-6 col-md-8 col-sm-8 col-10 elemento">
               <label class="form-label">*Mensaje: </label>
               <textarea rows="3" class="form-control" placeholder=""></textarea>
             </div>
-            <div class="btn-contact d-flex justify-content-center">
-              <button type="button" class="btn btn-outline-primary">
-                Enviar
-              </button>
-            </div>
-          </form>
-        </div>
+          </div>
+          <div class="btn-contact d-flex justify-content-center">
+            <button type="button" class="btn btn-outline-primary">
+              Enviar
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
