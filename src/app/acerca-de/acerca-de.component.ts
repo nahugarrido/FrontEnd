@@ -4,6 +4,7 @@ import { PersonaService } from '../service/persona.service';
 import { FormsModule,FormGroup,FormBuilder, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Persona } from '../model/persona.model';
+import { TokenService } from '../service/token.service';
 
 
 @Component({
@@ -19,11 +20,14 @@ export class AcercaDeComponent implements OnInit {
   private deleteId: number;
   imagen2: string; // PERFIL
   imagen3: string; // BANNER
+  roles: string[];
+  isAdmin = false;
 
   constructor(config: NgbModalConfig, 
     private modalService: NgbModal,
     private fb: FormBuilder,
-    public httpClient:HttpClient) {
+    public httpClient:HttpClient,
+    private tokenService : TokenService) {
     config.backdrop = 'static';
     config.keyboard = false;
   }
@@ -40,6 +44,13 @@ export class AcercaDeComponent implements OnInit {
       puesto: [''],
       descripcion: [''],
       img_banner: ['']
+    });
+
+    this.roles = this.tokenService.getAuthorities();
+    this.roles.forEach(rol => {
+      if (rol === 'ROLE_ADMIN') {
+        this.isAdmin = true;
+      }
     });
   }
   

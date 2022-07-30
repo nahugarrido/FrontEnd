@@ -116,9 +116,47 @@
       >
         Cancelar
       </button>
-      <button data-dismiss="modal" class="btn btn-primary" (click)="onSave()">
+      <button
+        *ngIf="isAdmin"
+        data-dismiss="modal"
+        class="btn btn-primary"
+        (click)="onSave()"
+      >
+        Guardar Cambios
+      </button>
+      <button
+        *ngIf="!isAdmin"
+        data-dismiss="modal"
+        class="btn btn-primary"
+        (click)="modal.dismiss('Cross click')"
+        (click)="open(noAuthorized)"
+      >
         Guardar Cambios
       </button>
     </div>
+  </div>
+</ng-template>
+
+<ng-template #noAuthorized let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Usuario no autorizado</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>Debes ser administrador para realizar esta operación.</p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-danger"
+      (click)="modal.close('Save click')"
+    >
+      Cerrar
+    </button>
   </div>
 </ng-template>

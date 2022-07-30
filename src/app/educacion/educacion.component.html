@@ -30,7 +30,7 @@
   <div class="row pt-3" *ngFor="let educacion of educacion">
     <div class="col-sm-3 d-none d-sm-block pt-3">
       <div class="d-flex justify-content-center">
-        <div class="img-container">
+        <div class="img-container d-flex justify-content-center">
           <img
             class="img-inside-container"
             src="{{ educacion.img }}"
@@ -190,7 +190,6 @@
       <div class="form-group">
         <label for="img">Imagen:</label>
         <div class="input-group">
-          <!-- <input id="img" name="img" class="form-control" ngModel /> -->
           <input
             type="file"
             alife-file-to-base64
@@ -200,14 +199,6 @@
             accept="image/*"
             class="form-control"
           />
-
-          <!--           <input
-          type="file"
-          alife-file-to-base64
-          (onFileChanged)="onFileChanged($event)"
-          formControlName="img"
-          class="form-control"
-        /> -->
         </div>
       </div>
       <br />
@@ -220,8 +211,21 @@
         >
           Cancelar
         </button>
-        <button type="submit" class="btn btn-primary" (click)="c('Save click')">
-          <!-- <button type="submit" class="btn btn-primary" (click)="onSave()"> -->
+        <button
+          *ngIf="isAdmin"
+          type="submit"
+          class="btn btn-primary"
+          (click)="c('Save click')"
+        >
+          Guardar Cambios
+        </button>
+        <button
+          *ngIf="!isAdmin"
+          type="button"
+          class="btn btn-primary"
+          (click)="c('Save click')"
+          (click)="open(noAuthorized)"
+        >
           Guardar Cambios
         </button>
       </div>
@@ -300,7 +304,21 @@
       >
         Cancelar
       </button>
-      <button data-dismiss="modal" class="btn btn-primary" (click)="onSave()">
+      <button
+        *ngIf="isAdmin"
+        data-dismiss="modal"
+        class="btn btn-primary"
+        (click)="onSave()"
+      >
+        Guardar Cambios
+      </button>
+      <button
+        *ngIf="!isAdmin"
+        data-dismiss="modal"
+        class="btn btn-primary"
+        (click)="modal.dismiss('Cross click')"
+        (click)="open(noAuthorized)"
+      >
         Guardar Cambios
       </button>
     </div>
@@ -331,8 +349,46 @@
     >
       Cancelar
     </button>
-    <button data-dismiss="modal" class="btn btn-danger" (click)="onDelete()">
+    <button
+      *ngIf="isAdmin"
+      data-dismiss="modal"
+      class="btn btn-danger"
+      (click)="onDelete()"
+    >
       Eliminar
+    </button>
+    <button
+      *ngIf="!isAdmin"
+      data-dismiss="modal"
+      class="btn btn-danger"
+      (click)="modal.dismiss('Cross click')"
+      (click)="open(noAuthorized)"
+    >
+      Eliminar
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #noAuthorized let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Usuario no autorizado</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>Debes ser administrador para realizar esta operación.</p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-danger"
+      (click)="modal.close('Save click')"
+    >
+      Cerrar
     </button>
   </div>
 </ng-template>

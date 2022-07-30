@@ -1,4 +1,6 @@
+import { identifierName } from '@angular/compiler';
 import { Component } from '@angular/core';
+import { CommonService } from './service/common-service.service';
 
 @Component({
   selector: 'app-root',

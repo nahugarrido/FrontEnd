@@ -1,3 +1,4 @@
-#loginModal h4 {
-  margin-bottom: 8%;
+#loginModal input {
+  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
