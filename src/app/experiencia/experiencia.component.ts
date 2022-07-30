@@ -5,6 +5,7 @@ import { ExperienciaService } from '../service/experiencia.service';
 import { FormsModule,FormGroup,FormBuilder, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Experiencia } from '../model/experiencia.model';
+import { TokenService } from '../service/token.service';
 
 @Component({
   selector: 'app-experiencia',
@@ -19,17 +20,20 @@ export class ExperienciaComponent implements OnInit {
   editForm: FormGroup;
   private deleteId: number;
   imagen2: string;
+  roles: string[];
+  isAdmin = false;
 
   constructor(config: NgbModalConfig, 
     private modalService: NgbModal,
     private fb: FormBuilder,
-    public httpClient:HttpClient) {
+    public httpClient:HttpClient,
+    private tokenService : TokenService) {
     config.backdrop = 'static';
     config.keyboard = false;
   }
 
   
-
+  
   ngOnInit(): void {
     this.getExperiencia();
     this.editForm = this.fb.group({
@@ -40,6 +44,13 @@ export class ExperienciaComponent implements OnInit {
       fecha_inicio: [''],
       fecha_finalizacion: [''],
       img: [''],
+    });
+    
+    this.roles = this.tokenService.getAuthorities();
+    this.roles.forEach(rol => {
+      if (rol === 'ROLE_ADMIN') {
+        this.isAdmin = true;
+      }
     });
   }
   

@@ -5,6 +5,7 @@ import { FormsModule,FormGroup,FormBuilder, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Contacto } from '../model/contacto.model';
 import { AppComponent } from '../app.component';
+import { TokenService } from '../service/token.service';
 
 @Component({
   selector: 'app-contacto',
@@ -17,24 +18,33 @@ export class ContactoComponent implements OnInit {
   closeResult: string;
   editForm: FormGroup;
   private deleteId: number;
-
-  constructor(config: NgbModalConfig, 
+  roles: string[];
+  isAdmin = false;
+  
+  constructor(config: NgbModalConfig,
     private modalService: NgbModal,
     private fb: FormBuilder,
-    public httpClient:HttpClient) {
-    config.backdrop = 'static';
-    config.keyboard = false;
-  }
+    public httpClient:HttpClient,
+    private tokenService : TokenService) {
+      config.backdrop = 'static';
+      config.keyboard = false;
+    }
+    
 
-  
-
-  ngOnInit(): void {
+    ngOnInit(): void {
     this.getContacto();
     this.editForm = this.fb.group({
       id: [''],
       mail_contacto: [''],
       github_url: [''],
       linkedin_url: [''],
+    });
+
+    this.roles = this.tokenService.getAuthorities();
+    this.roles.forEach(rol => {
+      if (rol === 'ROLE_ADMIN') {
+        this.isAdmin = true;
+      }
     });
   }
   
@@ -75,6 +85,7 @@ export class ContactoComponent implements OnInit {
   
 
   onSave() {
+
     console.log(this.editForm.value);
     const editURL = 'http://localhost:8080/contactos/' + 'editar/'  + this.editForm.value.id ;
     this.httpClient.put(editURL, this.editForm.value)

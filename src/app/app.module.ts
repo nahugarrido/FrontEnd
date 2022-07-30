@@ -17,7 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AlifeFileToBase64Module } from 'alife-file-to-base64';
-
+import { interceptorProvider } from './service/interceptor.service';
 
 
 
@@ -46,7 +46,7 @@ import { AlifeFileToBase64Module } from 'alife-file-to-base64';
     AlifeFileToBase64Module,
     
   ],
-  providers: [],
+  providers: [interceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

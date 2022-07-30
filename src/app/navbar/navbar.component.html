@@ -108,7 +108,7 @@
                   d="M6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6v1H14a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 2 7h5.5V6A1.5 1.5 0 0 1 6 4.5v-1zM8.5 5a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1zM0 11.5A1.5 1.5 0 0 1 1.5 10h1A1.5 1.5 0 0 1 4 11.5v1A1.5 1.5 0 0 1 2.5 14h-1A1.5 1.5 0 0 1 0 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5A1.5 1.5 0 0 1 7.5 10h1a1.5 1.5 0 0 1 1.5 1.5v1A1.5 1.5 0 0 1 8.5 14h-1A1.5 1.5 0 0 1 6 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5a1.5 1.5 0 0 1 1.5-1.5h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"
                 />
                 <rect>
-                  <title>Habilidades</title>
+                  <title>nombreUsuarioes</title>
                 </rect>
               </svg>
             </a>
@@ -198,11 +198,125 @@
       <button
         type="button"
         class="btn btn-outline-primary me-2"
+        *ngIf="!isLogged"   
         data-bs-toggle="modal"
-        data-bs-target="#loginModal"
+        (click)="open(content)"
       >
         Login
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-danger me-2"
+        *ngIf="isLogged"
+        data-bs-toggle="modal"
+        (click)="open(LogOut)"
+      >
+        Log Out
       </button>
     </div>
   </header>
 </section>
+
+<!-- Modal Login-->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Login</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form #f="ngForm" (ngSubmit)="onLogin(f)" novalidate>
+      <div class="form-group">
+        <label>Usuario:</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            name="nombreUsuario"
+            #nombreUsuario="ngModel"
+            ngModel
+            required
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Contraseña:</label>
+        <div class="input-group">
+          <input
+            id="password"
+            type="password"
+            name="password"
+            class="form-control"
+            ngModel
+          />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          (click)="c('Save click')"
+        >
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary" (click)="c('Save click')">
+          Confirmar
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #LogOut let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Cerrar sesion</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>¿Estás seguro de que deseas cerrar sesion?</p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-danger"
+      (click)="modal.close('Save click')"
+    >
+      Cancelar
+    </button>
+    <button data-dismiss="modal" class="btn btn-danger" (click)="onLogOut()">
+      Confirmar
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #Fail let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Usuario no valido</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>¡Debes Ingresar un usuario valido!</p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-danger"
+      (click)="modal.close('Save click')"
+    >
+      Cerrar
+    </button>
+  </div>
+</ng-template>

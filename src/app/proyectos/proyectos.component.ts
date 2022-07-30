@@ -4,6 +4,7 @@ import { ProyectoService } from '../service/proyecto.service';
 import { FormsModule,FormGroup,FormBuilder, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Proyecto } from '../model/proyecto.model';
+import { TokenService } from '../service/token.service';
 
 @Component({
   selector: 'app-proyectos',
@@ -17,11 +18,14 @@ export class ProyectosComponent implements OnInit {
   editForm: FormGroup;
   private deleteId: number;
   imagen2: string;
+  roles: string[];
+  isAdmin = false;
 
   constructor(config: NgbModalConfig, 
     private modalService: NgbModal,
     private fb: FormBuilder,
-    public httpClient:HttpClient) {
+    public httpClient:HttpClient,
+    private tokenService : TokenService) {
     config.backdrop = 'static';
     config.keyboard = false;
   }
@@ -39,12 +43,18 @@ export class ProyectosComponent implements OnInit {
       sourcecode_url: [''],
       img: [''],
     });
+
+    this.roles = this.tokenService.getAuthorities();
+    this.roles.forEach(rol => {
+      if (rol === 'ROLE_ADMIN') {
+        this.isAdmin = true;
+      }
+    });
   }
   
   getProyecto(){
     this.httpClient.get<any>('http://localhost:8080/proyectos/traer').subscribe(
       response =>{
-        //console.log(response);
         this.proyecto =response;
       }
       )

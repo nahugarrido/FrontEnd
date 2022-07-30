@@ -6,6 +6,8 @@ import { FormsModule,FormGroup,FormBuilder, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Habilidad } from '../model/habilidad.model';
 import { AppComponent } from '../app.component';
+import { TokenService } from '../service/token.service';
+
 
 @Component({
   selector: 'app-habilidades',
@@ -18,11 +20,14 @@ export class HabilidadesComponent implements OnInit {
   closeResult: string;
   editForm: FormGroup;
   private deleteId: number;
+  roles: string[];
+  isAdmin = false;
 
   constructor(config: NgbModalConfig, 
     private modalService: NgbModal,
     private fb: FormBuilder,
-    public httpClient:HttpClient) {
+    public httpClient:HttpClient,
+    private tokenService : TokenService) {
     config.backdrop = 'static';
     config.keyboard = false;
   }
@@ -35,7 +40,13 @@ export class HabilidadesComponent implements OnInit {
       id: [''],
       habilidad: [''],
       nivel: [''],
+    });
 
+    this.roles = this.tokenService.getAuthorities();
+    this.roles.forEach(rol => {
+      if (rol === 'ROLE_ADMIN') {
+        this.isAdmin = true;
+      }
     });
   }
   

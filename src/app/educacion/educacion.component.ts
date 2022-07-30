@@ -4,6 +4,7 @@ import { EducacionService } from '../service/educacion.service';
 import { FormsModule, FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Educacion } from '../model/educacion.model';
+import { TokenService } from '../service/token.service';
 
 
 @Component({
@@ -18,11 +19,14 @@ export class EducacionComponent implements OnInit {
   editForm: FormGroup;
   private deleteId: number;
   imagen2: string;
+  roles: string[];
+  isAdmin = false;
 
   constructor(config: NgbModalConfig,
     private modalService: NgbModal,
     private fb: FormBuilder,
-    public httpClient: HttpClient) {
+    public httpClient: HttpClient,
+    private tokenService : TokenService) {
     config.backdrop = 'static';
     config.keyboard = false;
   }
@@ -40,12 +44,17 @@ export class EducacionComponent implements OnInit {
       fecha_finalizacion: [''],
       img: [''],
     });
+    this.roles = this.tokenService.getAuthorities();
+    this.roles.forEach(rol => {
+      if (rol === 'ROLE_ADMIN') {
+        this.isAdmin = true;
+      }
+    });
   }
 
   getEducacion() {
     this.httpClient.get<any>('http://localhost:8080/educaciones/traer').subscribe(
       response => {
-        //console.log(response);
         this.educacion = response;
       }
     )
@@ -60,7 +69,6 @@ export class EducacionComponent implements OnInit {
 
   onSubmit(f: NgForm) {
     f.form.value.img = this.imagen2; /// ESTO ES LO QUE LO ROMPE
-    //console.log("ON SUBMIT:", this.editForm.value);
     console.log(f.form.value);
     const url = 'http://localhost:8080/educaciones/crear';
     this.httpClient.post(url, f.value)
@@ -91,9 +99,6 @@ export class EducacionComponent implements OnInit {
 
 
   onSave() {
-    console.log("on save 1:", this.editForm.value);
-    //this.editForm.value.img = this.imagen2;
-    console.log("on save 2:", this.editForm.value);
     const editURL = 'http://localhost:8080/educaciones/' + 'editar/' + this.editForm.value.id;
     this.httpClient.put(editURL, this.editForm.value)
       .subscribe((results) => {
@@ -104,7 +109,6 @@ export class EducacionComponent implements OnInit {
 
   openDelete(targetModal, educacion: Educacion) {
     console.log(this.deleteId);
-    console.log(educacion.id);
     this.deleteId = educacion.id;
     this.modalService.open(targetModal, {
       backdrop: 'static',
