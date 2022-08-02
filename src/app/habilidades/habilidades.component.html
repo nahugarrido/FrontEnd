@@ -129,6 +129,7 @@
           <input
             class="form-control"
             name="habilidad"
+            placeholder="Bootstrap"
             #habilidad="ngModel"
             ngModel
             required
@@ -136,9 +137,15 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="nivel">nivel:</label>
+        <label for="nivel">Nivel:</label>
         <div class="input-group">
-          <input id="nivel" name="nivel" class="form-control" ngModel />
+          <input
+            id="nivel"
+            name="nivel"
+            placeholder="Avanzado"
+            class="form-control"
+            ngModel
+          />
         </div>
       </div>
       <div class="modal-footer">
@@ -187,13 +194,21 @@
       <div class="form-group">
         <label for="habilidad">Habilidad:</label>
         <div class="input-group">
-          <input formControlName="habilidad" class="form-control" />
+          <input
+            formControlName="habilidad"
+            placeholder="Bootstrap"
+            class="form-control"
+          />
         </div>
       </div>
       <div class="form-group">
         <label for="nivel">Nivel:</label>
         <div class="input-group">
-          <input formControlName="nivel" class="form-control" />
+          <input
+            formControlName="nivel"
+            placeholder="Avanzado"
+            class="form-control"
+          />
         </div>
       </div>
     </form>

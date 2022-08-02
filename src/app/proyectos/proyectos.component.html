@@ -55,11 +55,13 @@
           <div class="row">
             <div class="col-9 botones-card">
               <a
+                target="_blank"
                 href="{{ proyecto.livecode_url }}"
                 class="btn btn-outline-primary"
                 >Live code</a
               >
               <a
+                target="_blank"
                 href="{{ proyecto.sourcecode_url }}"
                 class="btn btn-outline-primary"
                 >Source code</a
@@ -127,6 +129,7 @@
         <label>Nombre:</label>
         <div class="input-group">
           <input
+            placeholder="Portfolio - Argentina Programa"
             class="form-control"
             name="nombre"
             #nombre="ngModel"
@@ -138,20 +141,21 @@
       <div class="form-group">
         <label for="fecha">Fecha:</label>
         <div class="input-group">
-          <input id="fecha" name="fecha" class="form-control" ngModel />
+          <input
+            id="fecha"
+            name="fecha"
+            class="form-control"
+            placeholder="Febrero 2022"
+            ngModel
+          />
         </div>
       </div>
       <div class="form-group">
         <label for="descripcion">Descripción:</label>
         <div class="input-group">
-          <!--           <input
-            id="descripcion"
-            name="descripcion"
-            class="form-control"
-            ngModel
-          /> -->
           <textarea
             rows="3"
+            placeholder="Portafolio realizado utilizando tecnologias tanto de frontend como de backend, entre ellas: angular, bootstrap, java, mysql, html, css"
             id="descripcion"
             name="descripcion"
             class="form-control"
@@ -165,6 +169,7 @@
           <input
             id="livecode_url"
             name="livecode_url"
+            placeholder="https://github.com/nahugarrido/FrontEnd"
             class="form-control"
             ngModel
           />
@@ -176,6 +181,7 @@
           <input
             id="sourcecode_url"
             name="sourcecode_url"
+            placeholder="https://github.com/nahugarrido/FrontEnd"
             class="form-control"
             ngModel
           />
@@ -184,7 +190,6 @@
       <div class="form-group">
         <label for="img">Imagen:</label>
         <div class="input-group">
-          <!-- <input id="img" name="img" class="form-control" ngModel /> -->
           <input
             type="file"
             alife-file-to-base64
@@ -193,14 +198,6 @@
             name="img"
             class="form-control"
           />
-
-          <!--           <input
-          type="file"
-          alife-file-to-base64
-          (onFileChanged)="onFileChanged($event)"
-          formControlName="img"
-          class="form-control"
-        /> -->
         </div>
       </div>
       <br />
@@ -251,21 +248,29 @@
       <div class="form-group">
         <label for="nombre">nombre:</label>
         <div class="input-group">
-          <input formControlName="nombre" class="form-control" />
+          <input
+            formControlName="nombre"
+            placeholder="Portfolio - Argentina Programa"
+            class="form-control"
+          />
         </div>
       </div>
       <div class="form-group">
         <label for="fecha">Fecha:</label>
         <div class="input-group">
-          <input formControlName="fecha" class="form-control" />
+          <input
+            formControlName="fecha"
+            placeholder="Febrero 2022"
+            class="form-control"
+          />
         </div>
       </div>
       <div class="form-group">
         <label for="descripcion">Descripción:</label>
         <div class="input-group">
-          <!-- <input formControlName="descripcion" class="form-control" /> -->
           <textarea
             rows="5"
+            placeholder="Portafolio realizado utilizando tecnologias tanto de frontend como de backend, entre ellas: angular, bootstrap, java, mysql, html, css"
             formControlName="descripcion"
             class="form-control"
           ></textarea>
@@ -274,13 +279,21 @@
       <div class="form-group">
         <label for="livecode_url">Live code:</label>
         <div class="input-group">
-          <input formControlName="livecode_url" class="form-control" />
+          <input
+            formControlName="livecode_url"
+            placeholder="https://github.com/nahugarrido/FrontEnd"
+            class="form-control"
+          />
         </div>
       </div>
       <div class="form-group">
         <label for="sourcecode_url">Source code:</label>
         <div class="input-group">
-          <input formControlName="sourcecode_url" class="form-control" />
+          <input
+            formControlName="sourcecode_url"
+            placeholder="https://github.com/nahugarrido/FrontEnd"
+            class="form-control"
+          />
         </div>
       </div>
       <div class="form-group">

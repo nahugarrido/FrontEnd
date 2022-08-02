@@ -7,7 +7,7 @@ import { TokenService } from '../service/token.service';
 import { NgbModalConfig,NgbModal,ModalDismissReasons, NgbModalRef  } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule,FormGroup,FormBuilder, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { NgTemplateOutlet } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-navbar',
@@ -17,19 +17,20 @@ import { NgTemplateOutlet } from '@angular/common';
 export class NavbarComponent implements OnInit {
   contacto: Contacto[] = [];
   isLogged= false;
-  isLoginFail= false;
+  isLoginFail: boolean;
   loginUsuario: LoginUsuario;
   nombreUsuario: string;
   password: string;
   roles: string[] = [];
   closeResult: string;
+  mensajeError: string;
 
   @ViewChild('Fail', {static: false}) Fail: NgbModalRef;
 
   constructor(public contactoService: ContactoService, config: NgbModalConfig, 
     private modalService: NgbModal,
     private fb: FormBuilder,
-    public httpClient:HttpClient, private tokenService: TokenService,private authService: AuthService) { }
+    public httpClient:HttpClient, private tokenService: TokenService,private authService: AuthService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.contactoService.getContacto().subscribe(data => {this.contacto = data})
@@ -37,16 +38,15 @@ export class NavbarComponent implements OnInit {
       this.isLogged = true;
       this.isLoginFail = false;
       this.roles = this.tokenService.getAuthorities();
-    }
+    } 
 
-    
   }
   
-  onLogin(f: NgForm){
+     onLogin(f: NgForm){
     this.loginUsuario = new LoginUsuario(f.form.value.nombreUsuario, f.form.value.password);
     console.log(this.loginUsuario);
     this.isLoginFail = true;
-    this.authService.login(this.loginUsuario).subscribe(
+      this.authService.login(this.loginUsuario).subscribe(
       data => {
         this.isLoginFail = false;
         console.log("this.isLoginFail adentro de data:", this.isLoginFail);
@@ -55,13 +55,24 @@ export class NavbarComponent implements OnInit {
         this.tokenService.setUserName(data.nombreUsuario);
         this.tokenService.setAuthorities(data.authorities);
         this.roles = data.authorities;
-        //window.location.reload(); /// recarga la pagina
+        window.location.reload();
       },
-      );
-      
-    }
+      err => {
+        this.isLogged = false;
+        this.isLoginFail = true;
+        this.onLogInFail();
+      }
+      )
+  }
 
-    onLogInFail(): void {
+  onLogInFail2(value): void {
+    if(value)
+    {
+      this.open(this.Fail);
+    }
+  }
+
+   onLogInFail(): void {
       if(this.isLoginFail)
       {
         this.open(this.Fail);

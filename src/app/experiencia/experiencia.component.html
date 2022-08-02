@@ -131,6 +131,7 @@
           <input
             class="form-control"
             name="empresa"
+            placeholder="Ejemplo: Empresa especializada en peces dorados"
             #empresa="ngModel"
             ngModel
             required
@@ -140,18 +141,12 @@
       <div class="form-group">
         <label for="puesto">Puesto:</label>
         <div class="input-group">
-          <input id="puesto" name="puesto" class="form-control" ngModel />
+          <input id="puesto" name="puesto" placeholder="Software Developer Semi Senior" class="form-control" ngModel />
         </div>
       </div>
       <div class="form-group">
         <label for="descripcion">Descripción:</label>
         <div class="input-group">
-          <!--           <input
-            id="descripcion"
-            name="descripcion"
-            class="form-control"
-            ngModel
-          /> -->
           <textarea
             rows="5"
             id="descripcion"
@@ -167,6 +162,7 @@
           <input
             id="fecha_inicio"
             name="fecha_inicio"
+            placeholder="Marzo 2030"
             class="form-control"
             ngModel
           />
@@ -178,6 +174,7 @@
           <input
             id="fecha_finalizacion"
             name="fecha_finalizacion"
+            placeholder="Agosto 2030"
             class="form-control"
             ngModel
           />
@@ -186,7 +183,6 @@
       <div class="form-group">
         <label for="img">Imagen:</label>
         <div class="input-group">
-          <!-- <input id="img" name="img" class="form-control" ngModel /> -->
           <input
             type="file"
             alife-file-to-base64
@@ -195,14 +191,6 @@
             name="img"
             class="form-control"
           />
-
-          <!--           <input
-          type="file"
-          alife-file-to-base64
-          (onFileChanged)="onFileChanged($event)"
-          formControlName="img"
-          class="form-control"
-        /> -->
         </div>
       </div>
       <br />
@@ -253,19 +241,22 @@
       <div class="form-group">
         <label for="empresa">Empresa:</label>
         <div class="input-group">
-          <input formControlName="empresa" class="form-control" />
+          <input
+            formControlName="empresa"
+            placeholder="Ejemplo: Empresa especializada en peces dorados"
+            class="form-control"
+          />
         </div>
       </div>
       <div class="form-group">
         <label for="puesto">Puesto:</label>
         <div class="input-group">
-          <input formControlName="puesto" class="form-control" />
+          <input formControlName="puesto" placeholder="Software Developer Semi Senior" class="form-control" />
         </div>
       </div>
       <div class="form-group">
         <label for="descripcion">Descripción:</label>
         <div class="input-group">
-          <!-- <input formControlName="descripcion" class="form-control" /> -->
           <textarea
             rows="5"
             formControlName="descripcion"
@@ -276,19 +267,18 @@
       <div class="form-group">
         <label for="fecha_inicio">Fecha de inicio:</label>
         <div class="input-group">
-          <input formControlName="fecha_inicio" class="form-control" />
+          <input formControlName="fecha_inicio" placeholder="Marzo 2030" class="form-control" />
         </div>
       </div>
       <div class="form-group">
         <label for="fecha_finalizacion">Fecha de finalizacion:</label>
         <div class="input-group">
-          <input formControlName="fecha_finalizacion" class="form-control" />
+          <input formControlName="fecha_finalizacion" placeholder="Agosto 2030" class="form-control" />
         </div>
       </div>
       <div class="form-group">
         <label for="img">Imagen:</label>
         <div class="input-group">
-          <!-- <input formControlName="img" class="form-control" /> -->
           <input
             type="file"
             alife-file-to-base64
