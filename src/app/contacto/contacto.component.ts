@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModalConfig,NgbModal,ModalDismissReasons,  } from '@ng-bootstrap/ng-bootstrap';
 import { ContactoService } from '../service/contacto.service';
-import { FormsModule,FormGroup,FormBuilder, NgForm } from '@angular/forms';
+import { FormsModule,FormGroup,FormBuilder, NgForm, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Contacto } from '../model/contacto.model';
 import { AppComponent } from '../app.component';
@@ -20,6 +20,7 @@ export class ContactoComponent implements OnInit {
   private deleteId: number;
   roles: string[];
   isAdmin = false;
+  formEmail: string;
   
   constructor(config: NgbModalConfig,
     private modalService: NgbModal,
@@ -35,7 +36,6 @@ export class ContactoComponent implements OnInit {
     this.getContacto();
     this.editForm = this.fb.group({
       id: [''],
-      mail_contacto: [''],
       github_url: [''],
       linkedin_url: [''],
     });
@@ -46,8 +46,9 @@ export class ContactoComponent implements OnInit {
         this.isAdmin = true;
       }
     });
+
   }
-  
+
   getContacto(){
     this.httpClient.get<any>('http://localhost:8080/contactos/traer').subscribe(
       response =>{
@@ -76,7 +77,6 @@ export class ContactoComponent implements OnInit {
     });
     this.editForm.patchValue( {
       id: contacto.id,
-      mail_contacto: contacto.mail_contacto,
       github_url: contacto.github_url,
       linkedin_url: contacto.linkedin_url,
     });

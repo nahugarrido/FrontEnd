@@ -18,8 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AlifeFileToBase64Module } from 'alife-file-to-base64';
 import { interceptorProvider } from './service/interceptor.service';
-
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,8 @@ import { interceptorProvider } from './service/interceptor.service';
     NgbModule,
     ReactiveFormsModule,
     AlifeFileToBase64Module,
-    
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [interceptorProvider],
   bootstrap: [AppComponent]

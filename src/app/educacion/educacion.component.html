@@ -131,6 +131,7 @@
             class="form-control"
             name="titulo"
             #titulo="ngModel"
+            placeholder="Ejemplo: Analista de Software"
             ngModel
             required
           />
@@ -142,6 +143,7 @@
           <input
             id="institucion"
             name="institucion"
+            placeholder="Ejemplo: Universidad Tecnologica de Buenos Aires"
             class="form-control"
             ngModel
           />
@@ -150,16 +152,11 @@
       <div class="form-group">
         <label for="descripcion">Descripción:</label>
         <div class="input-group">
-          <!--           <input
-            id="descripcion"
-            name="descripcion"
-            class="form-control"
-            ngModel
-          /> -->
           <textarea
             rows="5"
             id="descripcion"
             name="descripcion"
+            placeholder="Ejemplo: Mi tarea a cargo era alimentar, cuidar, y educar a los peces dorados, trabajo de jornada completa."
             class="form-control"
             ngModel
           ></textarea>
@@ -171,6 +168,7 @@
           <input
             id="fecha_inicio"
             name="fecha_inicio"
+            placeholder="Marzo 2030"
             class="form-control"
             ngModel
           />
@@ -182,6 +180,7 @@
           <input
             id="fecha_finalizacion"
             name="fecha_finalizacion"
+            placeholder="Agosto 2030"
             class="form-control"
             ngModel
           />
@@ -249,22 +248,22 @@
       <div class="form-group">
         <label for="titulo">titulo:</label>
         <div class="input-group">
-          <input formControlName="titulo" class="form-control" />
+          <input formControlName="titulo" placeholder="Ejemplo: Analista de Software" class="form-control" />
         </div>
       </div>
       <div class="form-group">
         <label for="institucion">institucion:</label>
         <div class="input-group">
-          <input formControlName="institucion" class="form-control" />
+          <input formControlName="institucion" placeholder="Ejemplo: Universidad Tecnologica de Buenos Aires" class="form-control" />
         </div>
       </div>
       <div class="form-group">
         <label for="descripcion">Descripción:</label>
         <div class="input-group">
-          <!-- <input formControlName="descripcion" class="form-control" /> -->
           <textarea
             rows="5"
             formControlName="descripcion"
+            placeholder="Ejemplo: Mi tarea a cargo era alimentar, cuidar, y educar a los peces dorados, trabajo de jornada completa."
             class="form-control"
           ></textarea>
         </div>
@@ -272,19 +271,18 @@
       <div class="form-group">
         <label for="fecha_inicio">Fecha de inicio:</label>
         <div class="input-group">
-          <input formControlName="fecha_inicio" class="form-control" />
+          <input formControlName="fecha_inicio" placeholder="Marzo 2030" class="form-control" />
         </div>
       </div>
       <div class="form-group">
         <label for="fecha_finalizacion">Fecha de finalizacion:</label>
         <div class="input-group">
-          <input formControlName="fecha_finalizacion" class="form-control" />
+          <input formControlName="fecha_finalizacion" placeholder="Agosto 2030" class="form-control" />
         </div>
       </div>
       <div class="form-group">
         <label for="img">Imagen:</label>
         <div class="input-group">
-          <!-- <input formControlName="img" class="form-control" /> -->
           <input
             type="file"
             alife-file-to-base64
