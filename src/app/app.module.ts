@@ -12,7 +12,6 @@ import { HabilidadesComponent } from './habilidades/habilidades.component';
 import { ProyectosComponent } from './proyectos/proyectos.component';
 import { ContactoComponent } from './contacto/contacto.component';
 import { ModalesComponent } from './modales/modales.component';
-import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -34,7 +33,6 @@ import { ToastrModule } from 'ngx-toastr';
     ProyectosComponent,
     ContactoComponent,
     ModalesComponent,
-    FooterComponent,
   ],
   imports: [
     BrowserModule,
