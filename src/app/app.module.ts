@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { BannerButtonComponent } from './components/banner-button/banner-button.component';
-import { AcercaDeComponent } from './acerca-de/acerca-de.component';
+import { AcercaDeComponent } from './components/acerca-de/acerca-de.component';
 import { ExperienciaComponent } from './components/experiencia/experiencia.component';
 import { EducacionComponent } from './components/educacion/educacion.component';
 import { HabilidadesComponent } from './components/habilidades/habilidades.component';
@@ -17,8 +17,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlifeFileToBase64Module } from 'alife-file-to-base64';
 import { interceptorProvider } from './services/interceptor.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -42,8 +40,6 @@ import { ToastrModule } from 'ngx-toastr';
     NgbModule,
     ReactiveFormsModule,
     AlifeFileToBase64Module,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot(),
   ],
   providers: [interceptorProvider],
   bootstrap: [AppComponent],

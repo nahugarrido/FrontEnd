@@ -4,17 +4,9 @@ import {
   NgbModal,
   ModalDismissReasons,
 } from '@ng-bootstrap/ng-bootstrap';
-import {
-  FormsModule,
-  FormGroup,
-  FormBuilder,
-  NgForm,
-  FormControl,
-  Validators,
-} from '@angular/forms';
+import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Contacto } from '../../models/index';
-import { AppComponent } from '../../app.component';
 import { ContactoService, TokenService } from '../../services/index';
 
 @Component({
@@ -36,7 +28,8 @@ export class ContactoComponent implements OnInit {
     private modalService: NgbModal,
     private fb: FormBuilder,
     public httpClient: HttpClient,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private contactoService: ContactoService
   ) {
     config.backdrop = 'static';
     config.keyboard = false;
@@ -59,22 +52,32 @@ export class ContactoComponent implements OnInit {
   }
 
   getContacto() {
-    this.httpClient
-      .get<any>('https://backendnahuelgarrido.herokuapp.com/contactos/traer')
-      .subscribe((response) => {
-        //console.log(response);
-        this.contacto = response;
-      });
+    this.contactoService.getContacto().subscribe((response) => {
+      this.contacto = response;
+    });
   }
 
   onSubmit(f: NgForm) {
-    // console.log(this.editForm.value);
-    console.log(f.form.value);
-    const url = 'https://backendnahuelgarrido.herokuapp.com/contactos/crear';
-    this.httpClient.post(url, f.value).subscribe((result) => {
+    this.contactoService.addContacto(f.value).subscribe((result) => {
       this.ngOnInit();
     });
     this.modalService.dismissAll();
+  }
+
+  onSave() {
+    this.contactoService
+      .updateContacto(this.editForm.value)
+      .subscribe((results) => {
+        this.ngOnInit();
+        this.modalService.dismissAll();
+      });
+  }
+
+  onDelete() {
+    this.contactoService.deleteContacto(this.deleteId).subscribe((results) => {
+      this.ngOnInit();
+      this.modalService.dismissAll();
+    });
   }
 
   openEdit(targetModal, contacto: Contacto) {
@@ -89,35 +92,12 @@ export class ContactoComponent implements OnInit {
     });
   }
 
-  onSave() {
-    console.log(this.editForm.value);
-    const editURL =
-      'https://backendnahuelgarrido.herokuapp.com/contactos/' +
-      'editar/' +
-      this.editForm.value.id;
-    this.httpClient.put(editURL, this.editForm.value).subscribe((results) => {
-      this.ngOnInit();
-      this.modalService.dismissAll();
-    });
-  }
-
   openDelete(targetModal, contacto: Contacto) {
     console.log(this.deleteId);
     console.log(contacto.id);
     this.deleteId = contacto.id;
     this.modalService.open(targetModal, {
       backdrop: 'static',
-    });
-  }
-
-  onDelete() {
-    const deleteURL =
-      'https://backendnahuelgarrido.herokuapp.com/contactos/' +
-      'borrar/' +
-      this.deleteId;
-    this.httpClient.delete(deleteURL).subscribe((results) => {
-      this.ngOnInit();
-      this.modalService.dismissAll();
     });
   }
 

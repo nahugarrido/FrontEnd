@@ -1,21 +1,18 @@
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-  ɵViewRef,
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Contacto, LoginUsuario } from '../../models/index';
-import { ContactoService, AuthService, TokenService } from '../../services/index';
+import {
+  ContactoService,
+  AuthService,
+  TokenService,
+} from '../../services/index';
 import {
   NgbModalConfig,
   NgbModal,
   ModalDismissReasons,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule, FormGroup, FormBuilder, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-navbar',
@@ -37,13 +34,10 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     public contactoService: ContactoService,
-    config: NgbModalConfig,
     private modalService: NgbModal,
-    private fb: FormBuilder,
     public httpClient: HttpClient,
     private tokenService: TokenService,
-    private authService: AuthService,
-    private toastr: ToastrService
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
