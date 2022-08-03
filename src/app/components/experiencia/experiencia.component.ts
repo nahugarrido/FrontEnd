@@ -1,25 +1,24 @@
+
 import { Component, OnInit } from '@angular/core';
 import { NgbModalConfig,NgbModal,ModalDismissReasons,  } from '@ng-bootstrap/ng-bootstrap';
+import { ExperienciaService, TokenService } from '../../services/index';
 import { FormsModule,FormGroup,FormBuilder, NgForm } from '@angular/forms';
-import { PersonaService } from '../services/persona.service';
 import { HttpClient } from '@angular/common/http';
-import { Persona } from '../models/index';
-import { TokenService } from '../services/token.service';
-
+import { Experiencia } from '../../models/index';
 
 @Component({
-  selector: 'app-acerca-de',
-  templateUrl: './acerca-de.component.html',
-  styleUrls: ['./acerca-de.component.css']
+  selector: 'app-experiencia',
+  templateUrl: './experiencia.component.html',
+  styleUrls: ['./experiencia.component.css']
 })
-export class AcercaDeComponent implements OnInit {
 
-  persona: Persona[];
+export class ExperienciaComponent implements OnInit {
+
+  experiencia: Experiencia[];
   closeResult: string;
   editForm: FormGroup;
   private deleteId: number;
-  imagen2: string; // PERFIL
-  imagen3: string; // BANNER
+  imagen2: string;
   roles: string[];
   isAdmin = false;
 
@@ -33,19 +32,19 @@ export class AcercaDeComponent implements OnInit {
   }
 
   
-
+  
   ngOnInit(): void {
-    this.getPersona();
+    this.getExperiencia();
     this.editForm = this.fb.group({
       id: [''],
-      nombre: [''],
-      apellido: [''],
-      img: [''],
+      empresa: [''],
       puesto: [''],
       descripcion: [''],
-      img_banner: ['']
+      fecha_inicio: [''],
+      fecha_finalizacion: [''],
+      img: [''],
     });
-
+    
     this.roles = this.tokenService.getAuthorities();
     this.roles.forEach(rol => {
       if (rol === 'ROLE_ADMIN') {
@@ -54,33 +53,27 @@ export class AcercaDeComponent implements OnInit {
     });
   }
   
-  getPersona(){
-    this.httpClient.get<any>('https://backendnahuelgarrido.herokuapp.com/personas/traer').subscribe(
+  getExperiencia(){
+    this.httpClient.get<any>('https://backendnahuelgarrido.herokuapp.com/experiencias/traer').subscribe(
       response =>{
         //console.log(response);
-        this.persona =response;
+        this.experiencia =response;
       }
       )
     }
     
-    /* ALTER TABLE `backendnahuelgarrido`.`persona` MODIFY COLUMN img LONGTEXT; */
+    /* ALTER TABLE `backendnahuelgarrido`.`experiencia` MODIFY COLUMN img LONGTEXT; */
     onFileChanged(e){
-      //console.log(e);
+      console.log(e);
       this.imagen2= e[0].base64;
       this.editForm.value.img=this.imagen2;
-    };
-
-    onFileChanged2(e){
-      console.log(e);
-      this.imagen3= e[0].base64;
-      this.editForm.value.img_banner=this.imagen3;
     };
 
   onSubmit(f: NgForm) {
     f.form.value.img=this.imagen2;
     // console.log(this.editForm.value);
-     //console.log(f.form.value);
-     const url = 'https://backendnahuelgarrido.herokuapp.com/personas/crear';
+     console.log(f.form.value);
+     const url = 'https://backendnahuelgarrido.herokuapp.com/experiencias/crear';
      this.httpClient.post(url, f.value)
        .subscribe((result) => {
         this.ngOnInit(); 
@@ -89,27 +82,28 @@ export class AcercaDeComponent implements OnInit {
   }
 
 
-  openEdit(targetModal, persona:Persona) {
+  openEdit(targetModal, experiencia:Experiencia) {
     this.modalService.open(targetModal, {
-      centered: false,
+      centered: true,
       backdrop: 'static',
     });
     this.editForm.patchValue( {
-      id: persona.id,
-      nombre: persona.nombre,
-      apellido: persona.apellido,
-      img: persona.img,
-      puesto: persona.puesto,
-      descripcion: persona.descripcion,
-      img_banner: persona.img_banner
+      id: experiencia.id,
+      empresa: experiencia.empresa,
+      puesto: experiencia.puesto,
+      descripcion: experiencia.descripcion,
+      fecha_inicio: experiencia.fecha_inicio,
+      fecha_finalizacion: experiencia.fecha_finalizacion,
+      img: experiencia.img,
     });
   }
   
+  
+
   onSave() {
     //this.editForm.value.img = this.imagen2;
-    //sthis.editForm.value.img_banner = this.imagen3;
-    //console.log(this.editForm.value);
-    const editURL = 'https://backendnahuelgarrido.herokuapp.com/personas/' + 'editar/'  + this.editForm.value.id ;
+    console.log(this.editForm.value);
+    const editURL = 'https://backendnahuelgarrido.herokuapp.com/experiencias/' + 'editar/'  + this.editForm.value.id ;
     this.httpClient.put(editURL, this.editForm.value)
       .subscribe((results) => {
         this.ngOnInit();
@@ -117,17 +111,17 @@ export class AcercaDeComponent implements OnInit {
       });
   }
 
-  openDelete(targetModal, persona:Persona) {
-    //console.log(this.deleteId);
-    //console.log(persona.id);
-    this.deleteId = persona.id;
+  openDelete(targetModal, experiencia:Experiencia) {
+    console.log(this.deleteId);
+    console.log(experiencia.id);
+    this.deleteId = experiencia.id;
     this.modalService.open(targetModal, {
       backdrop: 'static',
     });
   }
 
   onDelete() {
-    const deleteURL = 'https://backendnahuelgarrido.herokuapp.com/personas/' +  'borrar/'+ this.deleteId ;
+    const deleteURL = 'https://backendnahuelgarrido.herokuapp.com/experiencias/' +  'borrar/'+ this.deleteId ;
     this.httpClient.delete(deleteURL)
       .subscribe((results) => {
         this.ngOnInit();
@@ -154,6 +148,8 @@ export class AcercaDeComponent implements OnInit {
     }
   }
   
+  
+
 }
 
 
@@ -161,6 +157,5 @@ export class AcercaDeComponent implements OnInit {
 function next(next: any, arg1: (response: any) => void) {
   throw new Error('Function not implemented.');
 }
-
 
 
