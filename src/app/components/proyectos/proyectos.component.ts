@@ -6,7 +6,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { ProyectoService, TokenService } from '../../services/index';
 import { Proyecto } from '../../models/index';
-import { FormsModule, FormGroup, FormBuilder, NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -28,7 +28,8 @@ export class ProyectosComponent implements OnInit {
     private modalService: NgbModal,
     private fb: FormBuilder,
     public httpClient: HttpClient,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private proyectoService: ProyectoService
   ) {
     config.backdrop = 'static';
     config.keyboard = false;
@@ -55,11 +56,9 @@ export class ProyectosComponent implements OnInit {
   }
 
   getProyecto() {
-    this.httpClient
-      .get<any>('https://backendnahuelgarrido.herokuapp.com/proyectos/traer')
-      .subscribe((response) => {
-        this.proyecto = response;
-      });
+    this.proyectoService.getProyecto().subscribe((response) => {
+      this.proyecto = response;
+    });
   }
 
   /* ALTER TABLE `backendnahuelgarrido`.`proyecto` MODIFY COLUMN img LONGTEXT; */
@@ -71,10 +70,7 @@ export class ProyectosComponent implements OnInit {
 
   onSubmit(f: NgForm) {
     f.form.value.img = this.imagen2;
-    // console.log(this.editForm.value);
-    console.log(f.form.value);
-    const url = 'https://backendnahuelgarrido.herokuapp.com/proyectos/crear';
-    this.httpClient.post(url, f.value).subscribe((result) => {
+    this.proyectoService.addProyecto(f.value).subscribe((result) => {
       this.ngOnInit();
     });
     this.modalService.dismissAll();
@@ -97,16 +93,12 @@ export class ProyectosComponent implements OnInit {
   }
 
   onSave() {
-    //this.editForm.value.img = this.imagen2;
-    console.log(this.editForm.value);
-    const editURL =
-      'https://backendnahuelgarrido.herokuapp.com/proyectos/' +
-      'editar/' +
-      this.editForm.value.id;
-    this.httpClient.put(editURL, this.editForm.value).subscribe((results) => {
-      this.ngOnInit();
-      this.modalService.dismissAll();
-    });
+    this.proyectoService
+      .updateProyecto(this.editForm.value)
+      .subscribe((results) => {
+        this.ngOnInit();
+        this.modalService.dismissAll();
+      });
   }
 
   openDelete(targetModal, proyecto: Proyecto) {
@@ -119,11 +111,7 @@ export class ProyectosComponent implements OnInit {
   }
 
   onDelete() {
-    const deleteURL =
-      'https://backendnahuelgarrido.herokuapp.com/proyectos/' +
-      'borrar/' +
-      this.deleteId;
-    this.httpClient.delete(deleteURL).subscribe((results) => {
+    this.proyectoService.deleteProyecto(this.deleteId).subscribe((results) => {
       this.ngOnInit();
       this.modalService.dismissAll();
     });

@@ -5,7 +5,7 @@ import {
   ModalDismissReasons,
 } from '@ng-bootstrap/ng-bootstrap';
 import { EducacionService, TokenService } from '../../services/index';
-import { FormsModule, FormGroup, FormBuilder, NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Educacion } from '../../models/index';
 /* ALTER TABLE `backendnahuelgarrido`.`educacion` MODIFY COLUMN imagen LONGTEXT; */
@@ -29,7 +29,8 @@ export class EducacionComponent implements OnInit {
     private modalService: NgbModal,
     private fb: FormBuilder,
     public httpClient: HttpClient,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private educacionService: EducacionService
   ) {
     config.backdrop = 'static';
     config.keyboard = false;
@@ -55,27 +56,53 @@ export class EducacionComponent implements OnInit {
   }
 
   getEducacion() {
-    this.httpClient
-      .get<any>('https://backendnahuelgarrido.herokuapp.com/educaciones/traer')
-      .subscribe((response) => {
-        this.educacion = response;
-      });
+    this.educacionService.getEducacion().subscribe((response) => {
+      this.educacion = response;
+    });
   }
 
   onFileChanged(e) {
-    console.log(e);
     this.imagen2 = e[0].base64;
     this.editForm.value.img = this.imagen2;
   }
 
   onSubmit(f: NgForm) {
-    f.form.value.img = this.imagen2; /// ESTO ES LO QUE LO ROMPE
-    console.log(f.form.value);
-    const url = 'https://backendnahuelgarrido.herokuapp.com/educaciones/crear';
-    this.httpClient.post(url, f.value).subscribe((result) => {
+    f.form.value.img = this.imagen2; // esto causaba bugs
+    this.educacionService.addEducacion(f.value).subscribe((result) => {
       this.ngOnInit();
     });
     this.modalService.dismissAll();
+  }
+
+  onSave() {
+    this.educacionService
+      .updateEducacion(this.editForm.value)
+      .subscribe((results) => {
+        this.ngOnInit();
+        this.modalService.dismissAll();
+      });
+  }
+
+  onDelete() {
+    this.educacionService
+      .deleteEducacion(this.deleteId)
+      .subscribe((results) => {
+        this.ngOnInit();
+        this.modalService.dismissAll();
+      });
+  }
+
+  open(content) {
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
   }
 
   openEdit(targetModal, educacion: Educacion) {
@@ -92,52 +119,14 @@ export class EducacionComponent implements OnInit {
       fecha_finalizacion: educacion.fecha_finalizacion,
       img: educacion.img,
     });
-    console.log('Open edit:', educacion);
-  }
-
-  onSave() {
-    const editURL =
-      'https://backendnahuelgarrido.herokuapp.com/educaciones/' +
-      'editar/' +
-      this.editForm.value.id;
-    this.httpClient.put(editURL, this.editForm.value).subscribe((results) => {
-      this.ngOnInit();
-      this.modalService.dismissAll();
-    });
   }
 
   openDelete(targetModal, educacion: Educacion) {
-    console.log(this.deleteId);
     this.deleteId = educacion.id;
     this.modalService.open(targetModal, {
       backdrop: 'static',
     });
   }
-
-  onDelete() {
-    const deleteURL =
-      'https://backendnahuelgarrido.herokuapp.com/educaciones/' +
-      'borrar/' +
-      this.deleteId;
-    this.httpClient.delete(deleteURL).subscribe((results) => {
-      this.ngOnInit();
-      this.modalService.dismissAll();
-    });
-  }
-
-  open(content) {
-    this.modalService
-      .open(content, { ariaLabelledBy: 'modal-basic-title' })
-      .result.then(
-        (result) => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
-  }
-
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';

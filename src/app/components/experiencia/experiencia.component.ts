@@ -1,19 +1,20 @@
-
 import { Component, OnInit } from '@angular/core';
-import { NgbModalConfig,NgbModal,ModalDismissReasons,  } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModalConfig,
+  NgbModal,
+  ModalDismissReasons,
+} from '@ng-bootstrap/ng-bootstrap';
 import { ExperienciaService, TokenService } from '../../services/index';
-import { FormsModule,FormGroup,FormBuilder, NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Experiencia } from '../../models/index';
 
 @Component({
   selector: 'app-experiencia',
   templateUrl: './experiencia.component.html',
-  styleUrls: ['./experiencia.component.css']
+  styleUrls: ['./experiencia.component.css'],
 })
-
 export class ExperienciaComponent implements OnInit {
-
   experiencia: Experiencia[];
   closeResult: string;
   editForm: FormGroup;
@@ -22,17 +23,18 @@ export class ExperienciaComponent implements OnInit {
   roles: string[];
   isAdmin = false;
 
-  constructor(config: NgbModalConfig, 
+  constructor(
+    config: NgbModalConfig,
     private modalService: NgbModal,
     private fb: FormBuilder,
-    public httpClient:HttpClient,
-    private tokenService : TokenService) {
+    public httpClient: HttpClient,
+    private tokenService: TokenService,
+    private experienciaService: ExperienciaService
+  ) {
     config.backdrop = 'static';
     config.keyboard = false;
   }
 
-  
-  
   ngOnInit(): void {
     this.getExperiencia();
     this.editForm = this.fb.group({
@@ -44,50 +46,42 @@ export class ExperienciaComponent implements OnInit {
       fecha_finalizacion: [''],
       img: [''],
     });
-    
+
     this.roles = this.tokenService.getAuthorities();
-    this.roles.forEach(rol => {
+    this.roles.forEach((rol) => {
       if (rol === 'ROLE_ADMIN') {
         this.isAdmin = true;
       }
     });
   }
-  
-  getExperiencia(){
-    this.httpClient.get<any>('https://backendnahuelgarrido.herokuapp.com/experiencias/traer').subscribe(
-      response =>{
-        //console.log(response);
-        this.experiencia =response;
-      }
-      )
-    }
-    
-    /* ALTER TABLE `backendnahuelgarrido`.`experiencia` MODIFY COLUMN img LONGTEXT; */
-    onFileChanged(e){
-      console.log(e);
-      this.imagen2= e[0].base64;
-      this.editForm.value.img=this.imagen2;
-    };
 
-  onSubmit(f: NgForm) {
-    f.form.value.img=this.imagen2;
-    // console.log(this.editForm.value);
-     console.log(f.form.value);
-     const url = 'https://backendnahuelgarrido.herokuapp.com/experiencias/crear';
-     this.httpClient.post(url, f.value)
-       .subscribe((result) => {
-        this.ngOnInit(); 
+  getExperiencia() {
+    this.experienciaService.getExperiencia().subscribe((response) => {
+      this.experiencia = response;
     });
-     this.modalService.dismissAll(); 
   }
 
+  /* ALTER TABLE `backendnahuelgarrido`.`experiencia` MODIFY COLUMN img LONGTEXT; */
+  onFileChanged(e) {
+    console.log(e);
+    this.imagen2 = e[0].base64;
+    this.editForm.value.img = this.imagen2;
+  }
 
-  openEdit(targetModal, experiencia:Experiencia) {
+  onSubmit(f: NgForm) {
+    f.form.value.img = this.imagen2;
+    this.experienciaService.addExperiencia(f.value).subscribe((result) => {
+      this.ngOnInit();
+    });
+    this.modalService.dismissAll();
+  }
+
+  openEdit(targetModal, experiencia: Experiencia) {
     this.modalService.open(targetModal, {
       centered: true,
       backdrop: 'static',
     });
-    this.editForm.patchValue( {
+    this.editForm.patchValue({
       id: experiencia.id,
       empresa: experiencia.empresa,
       puesto: experiencia.puesto,
@@ -97,21 +91,18 @@ export class ExperienciaComponent implements OnInit {
       img: experiencia.img,
     });
   }
-  
-  
 
   onSave() {
     //this.editForm.value.img = this.imagen2;
-    console.log(this.editForm.value);
-    const editURL = 'https://backendnahuelgarrido.herokuapp.com/experiencias/' + 'editar/'  + this.editForm.value.id ;
-    this.httpClient.put(editURL, this.editForm.value)
+    this.experienciaService
+      .updateExperiencia(this.editForm.value)
       .subscribe((results) => {
         this.ngOnInit();
         this.modalService.dismissAll();
       });
   }
 
-  openDelete(targetModal, experiencia:Experiencia) {
+  openDelete(targetModal, experiencia: Experiencia) {
     console.log(this.deleteId);
     console.log(experiencia.id);
     this.deleteId = experiencia.id;
@@ -121,21 +112,25 @@ export class ExperienciaComponent implements OnInit {
   }
 
   onDelete() {
-    const deleteURL = 'https://backendnahuelgarrido.herokuapp.com/experiencias/' +  'borrar/'+ this.deleteId ;
-    this.httpClient.delete(deleteURL)
+    this.experienciaService
+      .deleteExperiencia(this.deleteId)
       .subscribe((results) => {
         this.ngOnInit();
         this.modalService.dismissAll();
       });
   }
 
-
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
   }
 
   private getDismissReason(reason: any): string {
@@ -147,15 +142,8 @@ export class ExperienciaComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-  
-  
-
 }
-
-
 
 function next(next: any, arg1: (response: any) => void) {
   throw new Error('Function not implemented.');
 }
-
-

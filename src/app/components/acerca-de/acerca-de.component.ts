@@ -4,21 +4,24 @@ import {
   NgbModal,
   ModalDismissReasons,
 } from '@ng-bootstrap/ng-bootstrap';
-import { HabilidadService, TokenService } from '../../services/index';
 import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
+import { PersonaService } from '../../services/persona.service';
 import { HttpClient } from '@angular/common/http';
-import { Habilidad } from '../../models/index';
+import { Persona } from '../../models/index';
+import { TokenService } from '../../services/token.service';
 
 @Component({
-  selector: 'app-habilidades',
-  templateUrl: './habilidades.component.html',
-  styleUrls: ['./habilidades.component.css'],
+  selector: 'app-acerca-de',
+  templateUrl: './acerca-de.component.html',
+  styleUrls: ['./acerca-de.component.css'],
 })
-export class HabilidadesComponent implements OnInit {
-  habilidad: Habilidad[];
+export class AcercaDeComponent implements OnInit {
+  persona: Persona[];
   closeResult: string;
   editForm: FormGroup;
   private deleteId: number;
+  imagen2: string; // PERFIL
+  imagen3: string; // BANNER
   roles: string[];
   isAdmin = false;
 
@@ -28,18 +31,22 @@ export class HabilidadesComponent implements OnInit {
     private fb: FormBuilder,
     public httpClient: HttpClient,
     private tokenService: TokenService,
-    private habilidadService: HabilidadService
+    private personaService: PersonaService
   ) {
     config.backdrop = 'static';
     config.keyboard = false;
   }
 
   ngOnInit(): void {
-    this.gethabilidad();
+    this.getPersona();
     this.editForm = this.fb.group({
       id: [''],
-      habilidad: [''],
-      nivel: [''],
+      nombre: [''],
+      apellido: [''],
+      img: [''],
+      puesto: [''],
+      descripcion: [''],
+      img_banner: [''],
     });
 
     this.roles = this.tokenService.getAuthorities();
@@ -50,54 +57,69 @@ export class HabilidadesComponent implements OnInit {
     });
   }
 
-  gethabilidad() {
-    this.habilidadService.getHabilidad().subscribe((response) => {
-      this.habilidad = response;
+  getPersona() {
+    this.personaService.getPersona().subscribe((response) => {
+      this.persona = response;
     });
   }
 
+  /* ALTER TABLE `backendnahuelgarrido`.`persona` MODIFY COLUMN img LONGTEXT; */
+  onFileChanged(e) {
+    this.imagen2 = e[0].base64;
+    this.editForm.value.img = this.imagen2;
+  }
+
+  onFileChanged2(e) {
+    console.log(e);
+    this.imagen3 = e[0].base64;
+    this.editForm.value.img_banner = this.imagen3;
+  }
+
   onSubmit(f: NgForm) {
-    this.habilidadService.addHabilidad(f.value).subscribe((result) => {
+    f.form.value.img = this.imagen2;
+    this.personaService.addPersona(f.value).subscribe((result) => {
       this.ngOnInit();
     });
     this.modalService.dismissAll();
   }
 
-  openEdit(targetModal, habilidad: Habilidad) {
+  openEdit(targetModal, persona: Persona) {
     this.modalService.open(targetModal, {
       centered: false,
       backdrop: 'static',
     });
     this.editForm.patchValue({
-      id: habilidad.id,
-      habilidad: habilidad.habilidad,
-      nivel: habilidad.nivel,
+      id: persona.id,
+      nombre: persona.nombre,
+      apellido: persona.apellido,
+      img: persona.img,
+      puesto: persona.puesto,
+      descripcion: persona.descripcion,
+      img_banner: persona.img_banner,
     });
   }
 
   onSave() {
-    this.habilidadService
-      .updateHabilidad(this.editForm.value)
+    this.personaService
+      .updatePersona(this.editForm.value)
       .subscribe((results) => {
         this.ngOnInit();
         this.modalService.dismissAll();
       });
   }
 
-  openDelete(targetModal, habilidad: Habilidad) {
-    this.deleteId = habilidad.id;
+  openDelete(targetModal, persona: Persona) {
+    this.deleteId = persona.id;
     this.modalService.open(targetModal, {
       backdrop: 'static',
     });
   }
 
   onDelete() {
-    this.habilidadService
-      .deleteHabilidad(this.deleteId)
-      .subscribe((results) => {
-        this.ngOnInit();
-        this.modalService.dismissAll();
-      });
+    this.personaService.deletePersona(this.deleteId).subscribe((results) => {
+      this.ngOnInit();
+      this.modalService.dismissAll();
+    });
   }
 
   open(content) {
