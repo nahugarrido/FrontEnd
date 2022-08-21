@@ -24,6 +24,7 @@ export class AcercaDeComponent implements OnInit {
   imagen3: string; // BANNER
   roles: string[];
   isAdmin = false;
+  loading = true;
 
   constructor(
     config: NgbModalConfig,
@@ -35,6 +36,7 @@ export class AcercaDeComponent implements OnInit {
   ) {
     config.backdrop = 'static';
     config.keyboard = false;
+    this.loading = true;
   }
 
   ngOnInit(): void {
@@ -60,10 +62,15 @@ export class AcercaDeComponent implements OnInit {
   getPersona() {
     this.personaService.getPersona().subscribe((response) => {
       this.persona = response;
+
+      if (!this.persona) {
+        console.log('error on server');
+      } else {
+        this.loading = false;
+      }
     });
   }
 
-  /* ALTER TABLE `backendnahuelgarrido`.`persona` MODIFY COLUMN img LONGTEXT; */
   onFileChanged(e) {
     this.imagen2 = e[0].base64;
     this.editForm.value.img = this.imagen2;
