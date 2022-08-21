@@ -13,6 +13,7 @@ export class PersonaService {
   constructor(private http: HttpClient) {}
 
   public getPersona(): Observable<Persona[]> {
+    
     return this.http.get<Persona[]>(this.baseURL + 'traer');
   }
   public getPersonaId(id: any): Observable<Persona> {

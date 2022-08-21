@@ -38,6 +38,23 @@
   </div>
 </section>
 
+<!-- SPINNER -->
+<div class="page-overlay-wrapper" *ngIf="loading">
+  <h3>Nahuel Garrido</h3><br>
+  <div class="loader">
+    <div class="loader-square"></div>
+    <div class="loader-square"></div>
+    <div class="loader-square"></div>
+    <div class="loader-square"></div>
+    <div class="loader-square"></div>
+    <div class="loader-square"></div>
+    <div class="loader-square"></div>
+  </div>
+  <br>
+  <span>Esta cargando... :(</span>
+  <span>( hosting gratuito )</span>
+</div>
+
 <!-- ACERCA DE -->
 <section class="container-flex mx-4 my-4 pb-4" id="aboutme">
   <div class="row" *ngFor="let persona of persona">
